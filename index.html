@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ve创作</title>
+  <meta name="description" content="ve创作：给素食者、准备开始吃素的人、关注动物权益的人做的创作交流平台。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="ve创作 首页">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
+          <path d="M38 10C27 9 14 13 10 24c-3 8 1 13 7 15 12 4 21-9 21-29Z"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linejoin="round"></path>
+          <path d="M12 36 33 15"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"></path>
+          <path d="m33 15 4-5 1 7-5-2Z" fill="currentColor"></path>
+        </svg>
+        <span class="brand-name">ve创作</span>
+      </a>
+
+      <nav class="site-nav" aria-label="主导航">
+        <ul>
+          <li><a href="index.html" aria-current="page">首页</a></li>
+          <li><a href="inspiration.html">时空灵感</a></li>
+          <li><a href="community.html">社群</a></li>
+          <li><a href="meditation.html">冥想</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="step-0" class="step step-0 active" aria-labelledby="step-0-title">
+      <div class="step-0-content">
+        <h1 id="step-0-title" class="step-brand">ve创作</h1>
+        <p class="step-tagline">一个讲故事的空间</p>
+        <p class="step-hero-note">不必急着讲一个完整的故事——先替自己留出一个安静的角落，让故事慢慢长出来。</p>
+        <button type="button" id="start-create-btn" class="step-start-btn">开始创作</button>
+      </div>
+      <p class="step-demo">茻新计划 · 在线原型</p>
+    </section>
+
+    <section id="step-mood" class="step step-mood" aria-labelledby="mood-title" hidden>
+      <h2 id="mood-title">此刻的心情是？</h2>
+      <div class="mood-options">
+        <button class="mood-option mood-btn" type="button">🌿平静</button>
+        <button class="mood-option mood-btn" type="button">🌞愉悦</button>
+        <button class="mood-option mood-btn" type="button">🕰️怀念</button>
+        <button class="mood-option mood-btn" type="button">💭思念</button>
+        <button class="mood-option mood-btn" type="button">🌙孤独</button>
+        <button class="mood-option mood-btn" type="button">🌫️焦虑</button>
+        <button class="mood-option mood-btn" type="button">🍂悲伤</button>
+        <button class="mood-option mood-btn" type="button">🔥愤怒</button>
+        <button class="mood-option mood-btn" type="button">⚡兴奋</button>
+        <button class="mood-option mood-btn" type="button">🌱期待</button>
+        <button class="mood-option mood-btn" type="button">🌀迷茫</button>
+        <button class="mood-option mood-btn" type="button">🕯️感激</button>
+        <button type="button" id="mood-custom-btn" class="custom-option">✍️自定义</button>
+      </div>
+      <input type="text" id="mood-custom-input" hidden placeholder="写下此刻的心情……" />
+    </section>
+
+    <section id="step-place" class="step step-place" aria-labelledby="place-title" hidden>
+      <h2 id="place-title">它发生在哪里？</h2>
+      <div class="place-options">
+        <button class="place-option place-btn" type="button">家的餐桌</button>
+        <button class="place-option place-btn" type="button">上学路上</button>
+        <button class="place-option place-btn" type="button">一个人的房间</button>
+        <button class="place-option place-btn" type="button">大自然里</button>
+        <button class="place-option place-btn" type="button">一座陌生城市</button>
+        <button class="place-option place-btn" type="button">菜市场</button>
+        <button class="place-option place-btn" type="button">长途车上</button>
+        <button class="place-option place-btn" type="button">老家的院子</button>
+      </div>
+      <button type="button" class="custom-option">自定义</button>
+      <input type="text" id="place-custom-input" placeholder="写下发生地……" />
+    </section>
+
+    <section id="step-time" class="step step-time" aria-labelledby="time-title" hidden>
+      <h2 id="time-title">什么时候的事？</h2>
+      <div class="time-options">
+        <button class="time-option time-btn" type="button">童年</button>
+        <button class="time-option time-btn" type="button">学生时代</button>
+        <button class="time-option time-btn" type="button">毕业那年</button>
+        <button class="time-option time-btn" type="button">去年</button>
+        <button class="time-option time-btn" type="button">某个夏天</button>
+        <button class="time-option time-btn" type="button">某个冬天</button>
+        <button class="time-option time-btn" type="button">昨天</button>
+      </div>
+      <button type="button" class="custom-option">自定义</button>
+      <input type="text" id="time-custom-input" placeholder="写下时间……" />
+    </section>
+
+    <section id="step-angle" class="step step-angle" aria-labelledby="angle-title" hidden>
+      <h2 id="angle-title">想从哪里讲起？</h2>
+      <div class="angle-options">
+        <button class="angle-option angle-btn" type="button">我的转变故事</button>
+        <button class="angle-option angle-btn" type="button">写给犹豫的人</button>
+        <button class="angle-option angle-btn" type="button">以一只动物的视角</button>
+        <button class="angle-option angle-btn" type="button">写给过去的自己</button>
+        <button class="angle-option angle-btn" type="button">从一帧画面写起</button>
+        <button class="angle-option angle-btn" type="button">假如我是TA</button>
+      </div>
+      <button type="button" class="custom-option">其他</button>
+      <input type="text" id="angle-custom-input" placeholder="写下切入点……" />
+    </section>
+
+    <section id="step-writing" class="step step-writing" hidden>
+      <div id="ai-hint">AI 引导示例将在下一步实现</div>
+      <textarea id="story-text" placeholder="从你想说的第一句话开始……"></textarea>
+      <button type="button" id="save-btn">保存草稿</button>
+      <div class="publish-options" role="radiogroup" aria-label="保存范围">
+        <label class="publish-option"><input type="radio" name="publish-scope" value="draft" checked> 仅自己可见</label>
+        <label class="publish-option"><input type="radio" name="publish-scope" value="community"> 发布到社群</label>
+      </div>
+      <button type="button" id="go-community-btn" hidden class="go-community-btn">去社群看看 →</button>
+      <p class="writing-note">AI 引导为示例，正式版将接入真实 AI</p>
+    </section>
+
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

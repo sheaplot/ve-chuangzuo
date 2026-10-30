@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>冥想 — ve创作</title>
+  <meta name="description" content="给共情过重的心，一个停下来的地方。有时候看见越多，心里越重。这里不要求你放松，只陪你呼吸一分钟。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="demo-banner" role="note">
+    <strong>茻新计划 · 在线原型 Demo</strong>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="ve创作 首页">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
+          <path d="M38 10C27 9 14 13 10 24c-3 8 1 13 7 15 12 4 21-9 21-29Z"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linejoin="round"></path>
+          <path d="M12 36 33 15"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"></path>
+          <path d="m33 15 4-5 1 7-5-2Z" fill="currentColor"></path>
+        </svg>
+        <span class="brand-name">ve创作</span>
+      </a>
+
+      <nav class="site-nav" aria-label="主导航">
+        <ul>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="inspiration.html">时空灵感</a></li>
+          <li><a href="community.html">社群</a></li>
+          <li><a href="meditation.html" aria-current="page">冥想</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="breath" class="hero" aria-labelledby="breath-title">
+      <h1 id="breath-title">冥想 · 安心片刻</h1>
+      <p class="hero-subtitle">给共情过重的心，一个停下来的地方。</p>
+      <p class="hero-intro">
+        有时候看见越多，心里越重。这里不要求你放松，只陪你呼吸一分钟。
+      </p>
+    </section>
+
+    <section id="duration" class="section" aria-labelledby="duration-title">
+      <h2 id="duration-title">选择时长</h2>
+      <ul class="duration-list" aria-label="选择冥想时长">
+        <li><button class="duration-option" type="button" data-duration="1">1 分钟</button></li>
+        <li><button class="duration-option" type="button" data-duration="3">3 分钟</button></li>
+        <li><button class="duration-option" type="button" data-duration="5">5 分钟</button></li>
+      </ul>
+    </section>
+
+    <section id="breath-guide" class="section" aria-labelledby="breath-guide-title">
+      <h2 id="breath-guide-title">呼吸引导</h2>
+      <div class="breath-modes" role="group" aria-label="选择呼吸模式">
+        <button type="button" class="breath-mode-option selected" data-mode="breath">呼吸练习</button>
+        <button type="button" class="breath-mode-option" data-mode="breath478">4-7-8 深呼吸</button>
+        <button type="button" class="breath-mode-option" data-mode="body">身体扫描</button>
+      </div>
+      <div id="breath-circle" class="breath-circle"></div>
+      <p id="breath-text">准备好了吗？</p>
+      <p id="timer-text">1:00</p>
+      <p class="breath-note">视觉呼吸引导为示例，正式版将加入声音；呼吸练习为一般放松方法，不替代专业医疗建议。</p>
+    </section>
+
+    <section id="breath-session" class="section" aria-labelledby="breath-session-title">
+      <h2 id="breath-session-title">开始练习</h2>
+      <div class="breath-controls">
+        <button type="button" id="start-btn">开始</button>
+        <button type="button" id="pause-btn">暂停</button>
+        <button type="button" id="reset-btn">重置</button>
+      </div>
+
+      <div id="session-end" hidden>
+        <p>你为世界做出的选择，值得被温柔对待。</p>
+        <input type="text" id="feeling-input" placeholder="此刻的感受？（可选）" />
+        <div class="session-actions">
+          <button type="button" id="record-btn">记录</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© 2026 ve创作 · 保留所有权利</p>
+    </div>
+  </footer>
+
+  <script src="js/meditation.js"></script>
+</body>
+</html>

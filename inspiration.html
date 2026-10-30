@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>时空灵感 — ve创作</title>
+  <meta name="description" content="不同时空里的真实故事：动物、文化遗产、建筑与地理、饮食文化、极简生活、科技与太空；也可以以此为灵感开始写作。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="demo-banner" role="note">
+    <strong>茻新计划 · 在线原型 Demo</strong>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="ve创作 首页">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
+          <path d="M38 10C27 9 14 13 10 24c-3 8 1 13 7 15 12 4 21-9 21-29Z"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linejoin="round"></path>
+          <path d="M12 36 33 15"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"></path>
+          <path d="m33 15 4-5 1 7-5-2Z" fill="currentColor"></path>
+        </svg>
+        <span class="brand-name">ve创作</span>
+      </a>
+
+      <nav class="site-nav" aria-label="主导航">
+        <ul>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="inspiration.html" aria-current="page">时空灵感</a></li>
+          <li><a href="community.html">社群</a></li>
+          <li><a href="meditation.html">冥想</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="inspiration-intro" class="page-intro" aria-labelledby="page-title">
+      <h1 id="page-title">时空灵感</h1>
+      <p>
+        不同时空里的真实故事：动物、文化遗产、建筑与地理、饮食文化、极简生活、科技与太空。不写作也能当故事看；也可以以此为灵感开始写作。
+      </p>
+      <p class="page-intro-note">ve创作面向所有人，以素食与爱动物为特色。</p>
+    </section>
+
+    <section id="stories" class="section" aria-labelledby="stories-title">
+      <h2 id="stories-title">故事库</h2>
+
+      <div class="category-filter" role="group" aria-label="故事分类筛选">
+        <!-- 分类按钮由 js/inspiration.js 生成 -->
+      </div>
+
+      <div class="story-grid"></div>
+
+      <div id="story-sentinel" class="story-sentinel" aria-hidden="true"></div>
+
+      <button type="button" id="back-to-top" class="back-to-top" aria-label="回到顶部">↑</button>
+
+      <p class="story-note">故事内容整理自公开权威资料（博物馆、科研机构、新闻报道等）；原文表达与观点归作者所有。ve创作只是信息集合地——让真实故事被更多人看见——并不代表官方立场，也未获得所有作者的转载许可。</p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© 2026 ve创作 · 保留所有权利</p>
+    </div>
+  </footer>
+
+  <script src="js/stories.js"></script>
+  <script src="js/inspiration.js"></script>
+</body>
+</html>
