@@ -1,0 +1,14 @@
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.idea/
+.vscode/
+
+# 依赖 / 构建产物（本项目当前无构建流程，预留）
+node_modules/
+dist/
+
+# 本地临时文件
+*.log
