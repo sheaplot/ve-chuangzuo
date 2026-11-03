@@ -12,3 +12,8 @@ dist/
 
 # 本地临时文件
 *.log
+
+# 本地生成的数据文件（不提交到仓库）
+users.json
+records.json
+visitors.json
