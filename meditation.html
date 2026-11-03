@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>冥想 — ve创作</title>
   <meta name="description" content="给共情过重的心，一个停下来的地方。有时候看见越多，心里越重。这里不要求你放松，只陪你呼吸一分钟。">
+  <meta name="theme-color" content="#6f8f72">
+  <link rel="canonical" href="https://ve-chuangzuo.onrender.com/meditation.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="冥想 — ve创作">
+  <meta property="og:description" content="给共情过重的心，一个停下来的地方。这里不要求你放松，只陪你呼吸一分钟。">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ve创作">
+  <meta property="og:url" content="https://ve-chuangzuo.onrender.com/meditation.html">
   <link rel="stylesheet" href="css/style.css">
   <style>
     .session-mood{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0}
@@ -14,6 +22,7 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
 
   <div class="demo-banner" role="note">
     <strong>茻新计划 · 在线原型 Demo</strong>
@@ -35,8 +44,9 @@
         </svg>
         <span class="brand-name">ve创作</span>
       </a>
+      <button class="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
 
-      <nav class="site-nav" aria-label="主导航">
+      <nav id="site-nav" class="site-nav" aria-label="主导航">
         <ul>
           <li><a href="index.html">首页</a></li>
           <li><a href="inspiration.html">时空灵感</a></li>
@@ -48,7 +58,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main" tabindex="-1">
 
     <section id="breath" class="hero" aria-labelledby="breath-title">
       <h1 id="breath-title">冥想 · 安心片刻</h1>
@@ -114,6 +124,7 @@
     </div>
   </footer>
 
+  <script src="js/nav.js"></script>
   <script src="js/record.js"></script>
   <script src="js/meditation.js"></script>
 </body>

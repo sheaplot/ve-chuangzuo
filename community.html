@@ -5,9 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>社群 · 听听别人的故事 — ve创作</title>
   <meta name="description" content="这里是 Ve 创作者们写下的日常。">
+  <meta name="theme-color" content="#6f8f72">
+  <link rel="canonical" href="https://ve-chuangzuo.onrender.com/community.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="社群 · 听听别人的故事 — ve创作">
+  <meta property="og:description" content="这里是 Ve 创作者们写下的日常。">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ve创作">
+  <meta property="og:url" content="https://ve-chuangzuo.onrender.com/community.html">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
 
   <div class="demo-banner" role="note">
     <strong>茻新计划 · 在线原型 Demo</strong>
@@ -25,8 +34,9 @@
         </svg>
         <span class="brand-name">ve创作</span>
       </a>
+      <button class="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
 
-      <nav class="site-nav" aria-label="主导航">
+      <nav id="site-nav" class="site-nav" aria-label="主导航">
         <ul>
           <li><a href="index.html">首页</a></li>
           <li><a href="inspiration.html">时空灵感</a></li>
@@ -38,7 +48,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main" tabindex="-1">
 
     <section id="community" class="section" aria-labelledby="community-title">
       <h1 id="community-title" class="page-title">社群 · 听听别人的故事</h1>
@@ -59,6 +69,7 @@
     </div>
   </footer>
 
+  <script src="js/nav.js"></script>
   <script src="js/community.js"></script>
 </body>
 </html>

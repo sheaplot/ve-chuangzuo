@@ -3,11 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ve创作</title>
+  <title>ve创作 — 给茻人一个讲故事的空间</title>
   <meta name="description" content="ve创作：给素食者、准备开始吃素的人、关注动物权益的人做的创作交流平台。">
+  <meta name="theme-color" content="#6f8f72">
+  <link rel="canonical" href="https://ve-chuangzuo.onrender.com/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="ve创作 — 给茻人一个讲故事的空间">
+  <meta property="og:description" content="给素食者、准备开始吃素的人、关注动物权益的人做的创作交流平台。">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ve创作">
+  <meta property="og:url" content="https://ve-chuangzuo.onrender.com/">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
 
   <header class="site-header">
     <div class="header-inner">
@@ -25,8 +34,9 @@
         </svg>
         <span class="brand-name">ve创作</span>
       </a>
+      <button class="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
 
-      <nav class="site-nav" aria-label="主导航">
+      <nav id="site-nav" class="site-nav" aria-label="主导航">
         <ul>
           <li><a href="index.html" aria-current="page">首页</a></li>
           <li><a href="inspiration.html">时空灵感</a></li>
@@ -38,7 +48,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main" tabindex="-1">
 
     <section id="step-0" class="step step-0 active" aria-labelledby="step-0-title">
       <div class="step-0-content">
@@ -133,55 +143,167 @@
     <h2 id="visitor-map-title">访客地图</h2>
     <p class="visitor-map-note">来自世界各地的创作者在这里留下足迹。</p>
 
-    <div class="visitor-map-wrap" style="position:relative;width:100%;aspect-ratio:2/1;max-width:1000px;margin:0 auto;border-radius:12px;overflow:hidden;background:#f2f8f4;">
-      <svg viewBox="0 0 360 180" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;">
-        <g stroke="#d8e8de" stroke-width="0.4">
-          <path d="M60 0 V180 M120 0 V180 M180 0 V180 M240 0 V180 M300 0 V180"/>
-          <path d="M0 30 H360 M0 60 H360 M0 90 H360 M0 120 H360 M0 150 H360"/>
-        </g>
-        <g fill="#bfe0cd" stroke="#9cc7b1" stroke-width="0.5">
-          <path d="M12,22 28,19 48,16 70,15 90,17 102,22 106,30 110,40 114,42 108,46 100,44 98,52 94,58 90,64 92,68 86,72 82,80 84,84 78,83 74,76 68,70 64,64 60,58 54,50 48,44 40,34 30,26 20,24 Z"/>
-          <path d="M106,14 120,16 130,20 136,27 132,32 124,33 116,31 108,26 106,20 Z"/>
-          <path d="M84,84 98,82 110,85 124,90 132,96 142,98 146,104 138,114 130,122 124,128 118,134 114,142 112,148 116,146 118,138 114,132 110,126 106,118 102,108 100,100 96,92 90,86 Z"/>
-          <path d="M176,50 172,44 176,40 182,42 188,42 194,42 198,40 198,32 202,26 210,26 216,30 224,28 238,22 260,18 282,16 300,18 314,22 326,28 326,32 318,34 308,38 300,42 292,46 286,48 282,54 278,60 276,66 280,72 284,78 286,84 282,88 278,86 274,82 270,78 264,74 262,68 262,60 258,56 254,52 250,56 248,62 246,68 240,64 252,50 248,46 240,44 236,48 232,50 226,48 220,46 214,44 210,46 206,48 202,46 198,46 192,46 188,48 184,46 180,48 Z"/>
-          <path d="M232,62 238,60 236,66 228,70 224,66 222,60 226,56 230,58 Z"/>
-          <path d="M176,50 172,54 170,60 174,66 170,72 178,78 186,82 192,84 200,84 208,82 216,88 220,96 224,104 220,112 212,120 204,126 198,122 196,116 192,106 190,96 186,90 184,82 178,78 176,70 178,64 182,58 188,56 198,58 208,60 212,64 218,64 218,70 222,76 228,80 230,78 226,72 224,66 220,62 216,60 212,58 208,54 200,54 190,52 184,50 Z"/>
-          <path d="M226,100 232,104 232,112 226,116 222,112 222,106 224,102 Z"/>
-          <path d="M176,30 174,34 176,38 180,38 182,35 180,32 Z"/>
-          <path d="M158,26 166,26 168,30 162,32 158,30 Z"/>
-          <path d="M318,42 324,40 330,38 332,42 328,46 322,44 Z"/>
-          <path d="M276,88 274,94 280,96 282,90 Z"/>
-          <path d="M288,92 294,92 296,96 290,96 Z"/>
-          <path d="M286,84 294,84 296,88 288,90 Z"/>
-          <path d="M306,80 310,78 314,82 308,84 Z"/>
-          <path d="M292,118 286,124 288,132 296,138 308,140 320,138 330,132 336,126 338,120 336,114 330,110 324,108 318,110 312,114 306,116 300,118 296,118 Z"/>
-          <path d="M318,144 326,142 324,148 318,148 Z"/>
-          <path d="M332,132 338,128 342,132 338,136 332,134 Z"/>
+    <div class="visitor-map-wrap" style="position:relative;width:100%;aspect-ratio:2.3/1;max-width:760px;margin:0 auto;border-radius:12px;overflow:hidden;background:#f2f8f4;">
+      <svg id="visitmap-svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet" role="img" aria-label="世界访客地图，圆点代表访客所在城市" style="position:absolute;inset:0;width:100%;height:100%;">
+        <rect width="800" height="400" fill="#f2f8f4"></rect>
+        <g id="visitmap-viewport">
+          <path id="visitmap-land" d="" fill="#bfe0cd" stroke="#9cc7b1" stroke-width="0.6"></path>
+          <g id="visitmap-dots"></g>
         </g>
       </svg>
-
-      <div id="visitmap-dots" style="position:absolute;inset:0;pointer-events:none;"></div>
+      <div class="map-controls" role="group" aria-label="地图缩放控制">
+        <button type="button" id="map-zoom-in" aria-label="放大地图">＋</button>
+        <button type="button" id="map-zoom-out" aria-label="缩小地图">−</button>
+        <button type="button" id="map-reset" aria-label="复位地图">复位</button>
+      </div>
+      <div class="map-empty" id="visitmap-empty" hidden>地图暂时看不见，但不影响使用。</div>
     </div>
 
-    <p class="visitor-map-privacy">访客地图说明：本页仅统计访问者的大致所在地区（城市级别），用于了解内容被哪些地方的人看见。不会收集精确位置、姓名或联系方式，IP 只作匿名统计、不留存个人信息，也不用于其他用途。地图为简约示意图。</p>
+    <p class="visitor-map-meta">
+      <span id="visitmap-summary"></span>
+      <span class="map-tip">拖动平移 · 滚轮 / 按钮缩放</span>
+    </p>
+    <p class="visitor-map-privacy">访客地图说明：本页仅统计访问者的大致所在地区（城市级别），用于了解内容被哪些地方的人看见。不会收集精确位置、姓名或联系方式，IP 只作匿名统计、不留存个人信息，也不用于其他用途。地图为世界地图示意，点位为城市级近似坐标。</p>
   </section>
 
+  <script src="js/world-map.js"></script>
   <script>
-  fetch("/api/visitors").then(r => r.json()).then(function (data) {
-    var layer = document.getElementById("visitmap-dots");
-    Object.keys(data).forEach(function (k) {
-      var v = data[k];
-      if (isNaN(v.lat) || isNaN(v.lng)) return;
-      var x = (v.lng + 180) / 360 * 100;
-      var y = (90 - v.lat) / 180 * 100;
-      var r = 5 + Math.sqrt(v.count) * 2.5;
-      var d = document.createElement("div");
-      d.style.cssText = "position:absolute;left:" + x + "%;top:" + y + "%;width:" + (r * 2) + "px;height:" + (r * 2) + "px;margin:" + (-r) + "px 0 0 " + (-r) + "px;background:#3f8f6b;border:2px solid #fff;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.35);";
-      d.title = v.count + " 次访问 · " + v.city + ", " + v.country;
-      layer.appendChild(d);
+  (function () {
+    var SVG_NS = "http://www.w3.org/2000/svg";
+    var svg = document.getElementById("visitmap-svg");
+    var land = document.getElementById("visitmap-land");
+    var dots = document.getElementById("visitmap-dots");
+    var summary = document.getElementById("visitmap-summary");
+    var empty = document.getElementById("visitmap-empty");
+    if (!svg || !land || !dots) return;
+
+    if (window.WORLD_MAP_PATH) land.setAttribute("d", window.WORLD_MAP_PATH);
+
+    var W = 800, H = 400;
+    var vb = { x: 0, y: 0, w: W, h: H };
+
+    function applyViewBox() {
+      svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h);
+    }
+    function reset() {
+      vb = { x: 0, y: 0, w: W, h: H };
+      applyViewBox();
+    }
+    function clamp() {
+      var minW = 80, maxW = W;
+      vb.w = Math.max(minW, Math.min(maxW, vb.w));
+      vb.h = vb.w * (H / W);
+      vb.x = Math.max(-vb.w * 0.2, Math.min(W - vb.w * 0.8, vb.x));
+      vb.y = Math.max(-vb.h * 0.2, Math.min(H - vb.h * 0.8, vb.y));
+    }
+    function zoomAt(factor, cx, cy) {
+      var nw = vb.w * factor, nh = nw * (H / W);
+      if (nw > W) { reset(); return; }
+      if (nw < 80) { clamp(); applyViewBox(); return; }
+      var rx = (cx - vb.x) / vb.w, ry = (cy - vb.y) / vb.h;
+      vb.x = cx - rx * nw;
+      vb.y = cy - ry * nh;
+      vb.w = nw;
+      vb.h = nh;
+      clamp();
+      applyViewBox();
+    }
+    function toSvg(clientX, clientY) {
+      var p = svg.createSVGPoint();
+      p.x = clientX; p.y = clientY;
+      var m = svg.getScreenCTM();
+      if (!m) return { x: W / 2, y: H / 2 };
+      var q = p.matrixTransform(m.inverse());
+      return { x: q.x, y: q.y };
+    }
+
+    var dragging = false, last = null;
+    svg.addEventListener("pointerdown", function (e) {
+      dragging = true;
+      last = { x: e.clientX, y: e.clientY };
+      if (svg.setPointerCapture) { try { svg.setPointerCapture(e.pointerId); } catch (err) {} }
+      svg.classList.add("is-dragging");
     });
-  });
+    svg.addEventListener("pointermove", function (e) {
+      if (!dragging || !last) return;
+      var dx = (e.clientX - last.x) * (vb.w / svg.clientWidth);
+      var dy = (e.clientY - last.y) * (vb.h / svg.clientHeight);
+      vb.x -= dx;
+      vb.y -= dy;
+      last = { x: e.clientX, y: e.clientY };
+      clamp();
+      applyViewBox();
+    });
+    function endDrag(e) {
+      dragging = false;
+      last = null;
+      svg.classList.remove("is-dragging");
+      if (e && svg.releasePointerCapture && e.pointerId != null) {
+        try { svg.releasePointerCapture(e.pointerId); } catch (err) {}
+      }
+    }
+    svg.addEventListener("pointerup", endDrag);
+    svg.addEventListener("pointercancel", endDrag);
+    svg.addEventListener("pointerleave", function (e) { if (dragging) endDrag(e); });
+    svg.addEventListener("wheel", function (e) {
+      e.preventDefault();
+      var p = toSvg(e.clientX, e.clientY);
+      zoomAt(e.deltaY > 0 ? 1.25 : 0.8, p.x, p.y);
+    }, { passive: false });
+
+    document.getElementById("map-zoom-in").onclick = function () { zoomAt(0.8, W / 2, H / 2); };
+    document.getElementById("map-zoom-out").onclick = function () { zoomAt(1.25, W / 2, H / 2); };
+    document.getElementById("map-reset").onclick = reset;
+    reset();
+
+    fetch("/api/visitors")
+      .then(function (r) { if (!r.ok) throw new Error("visitors api " + r.status); return r.json(); })
+      .then(function (data) {
+        var keys = Object.keys(data || {});
+        var total = 0;
+        keys.forEach(function (k) {
+          var v = data[k] || {};
+          var lat = Number(v.lat), lng = Number(v.lng), count = Number(v.count) || 0;
+          if (isNaN(lat) || isNaN(lng)) return;
+          total += count;
+          var cx = (lng + 180) / 360 * W;
+          var cy = (90 - lat) / 180 * H;
+          var r = Math.max(3.5, Math.min(12, 3.5 + Math.sqrt(count) * 1.6));
+          var halo = document.createElementNS(SVG_NS, "circle");
+          halo.setAttribute("cx", cx.toFixed(1));
+          halo.setAttribute("cy", cy.toFixed(1));
+          halo.setAttribute("r", (r * 2.1).toFixed(1));
+          halo.setAttribute("fill", "#3f8f6b");
+          halo.setAttribute("fill-opacity", "0.16");
+          halo.setAttribute("pointer-events", "none");
+          dots.appendChild(halo);
+          var c = document.createElementNS(SVG_NS, "circle");
+          c.setAttribute("cx", cx.toFixed(1));
+          c.setAttribute("cy", cy.toFixed(1));
+          c.setAttribute("r", r.toFixed(1));
+          c.setAttribute("fill", "#3f8f6b");
+          c.setAttribute("stroke", "#ffffff");
+          c.setAttribute("stroke-width", "1");
+          c.setAttribute("fill-opacity", "0.9");
+          c.setAttribute("role", "img");
+          var label = count + " 次访问 · " + (v.city || "未知城市") + ", " + (v.country || "");
+          c.setAttribute("aria-label", label);
+          var title = document.createElementNS(SVG_NS, "title");
+          title.textContent = label;
+          c.appendChild(title);
+          dots.appendChild(c);
+        });
+        if (summary) {
+          summary.textContent = keys.length ? (keys.length + " 个城市 · " + total + " 次访问") : "还没有访客记录";
+        }
+      })
+      .catch(function () {
+        if (empty) empty.hidden = false;
+        if (summary) summary.textContent = "";
+      });
+  })();
   </script>
+  <script src="js/nav.js"></script>
   <script src="js/record.js"></script>
   <script src="js/main.js"></script>
 </body>

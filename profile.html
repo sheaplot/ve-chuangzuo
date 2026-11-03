@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>个人中心 — ve创作</title>
+  <meta name="description" content="ve创作个人中心：记录你的冥想、写作与心情。">
+  <meta name="theme-color" content="#6f8f72">
+  <link rel="canonical" href="https://ve-chuangzuo.onrender.com/profile.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="个人中心 — ve创作">
+  <meta property="og:description" content="记录你的冥想、写作与心情。">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ve创作">
+  <meta property="og:url" content="https://ve-chuangzuo.onrender.com/profile.html">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5faf6;color:#24382c;line-height:1.6}
@@ -43,25 +52,49 @@
     .mood-table .cell.mood{background:#dff0e5;border:1px solid #bcdcc9}
     .mood-head{display:flex;justify-content:space-between;align-items:baseline;margin-top:20px;flex-wrap:wrap;gap:6px}
     .mood-count{font-size:13px;color:#51705f}
+
+    /* 无障碍 / 触控 / 移动端导航 */
+    .skip-link{position:absolute;top:-80px;left:8px;z-index:200;padding:10px 16px;border-radius:8px;background:#2f6b4f;color:#fff;font-size:13px;text-decoration:none}
+    .skip-link:focus{top:12px}
+    :focus-visible{outline:2px solid #2f6b4f;outline-offset:3px}
+    #main:focus{outline:none}
+    .brand,nav a,.btn,.tab,.mood{display:inline-flex;align-items:center;min-height:44px;min-width:44px}
+    .mood{justify-content:center}
+    .nav-toggle{display:none;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid #cfdfd3;border-radius:10px;background:#fff;color:#2f6b4f;cursor:pointer;flex-direction:column;gap:5px}
+    .nav-toggle span{display:block;width:20px;height:2px;background:currentColor;border-radius:1px;transition:transform .2s ease,opacity .2s ease}
+    .site-header.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .site-header.nav-open .nav-toggle span:nth-child(2){opacity:0}
+    .site-header.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    @media (max-width:639px){
+      .header-inner{align-items:center;min-height:56px;padding:8px 14px;flex-wrap:wrap}
+      .nav-toggle{display:inline-flex;order:2}
+      nav{display:none;width:100%;order:3;padding:10px 0 12px;border-top:1px solid #e3efe6}
+      .site-header.nav-open nav{display:block}
+      nav ul{flex-direction:column;gap:2px;align-items:flex-start}
+      nav a{padding:10px 6px;font-size:15px;width:100%}
+    }
+    @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="index.html">ve创作</a>
-      <nav>
+      <button class="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+      <nav id="site-nav">
         <ul>
           <li><a href="index.html">首页</a></li>
           <li><a href="inspiration.html">时空灵感</a></li>
           <li><a href="community.html">社群</a></li>
           <li><a href="meditation.html">冥想</a></li>
-          <li><a href="profile.html" style="font-weight:700">个人中心</a></li>
+          <li><a href="profile.html" aria-current="page" style="font-weight:700">个人中心</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main id="main" tabindex="-1">
     <!-- 未登录 -->
     <section id="view-login" class="card">
       <h1>欢迎回来</h1>
@@ -150,6 +183,7 @@
     </section>
   </main>
 
+  <script src="js/nav.js"></script>
   <script src="js/record.js"></script>
   <script>
     var TOKEN = localStorage.getItem("ve_token");
