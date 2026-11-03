@@ -13,17 +13,18 @@
 
   function send(type, text){
     var tk = token();
-    if(!tk){ toast("登录后自动记录到个人中心"); return; }
-    fetch(API, {method:"POST", headers:{"Content-Type":"application/json","x-token":tk},
+    if(!tk){ toast("登录后自动记录到个人中心"); return Promise.resolve(false); }
+    return fetch(API, {method:"POST", headers:{"Content-Type":"application/json","x-token":tk},
       body: JSON.stringify({type:type, text:text})})
       .then(function(r){return r.json();}).then(function(res){
         if(res.ok){ toast("已记录到个人中心"); } else { toast(res.error || "记录失败"); }
+        return !!(res && res.ok);
       });
   }
 
   window.veRecord = {
-    writing:   function(title, text){ send("writing",   title + (text ? " · " + text : "")); },
-    meditation:function(duration, note){ send("meditation", "冥想 " + duration + " 分钟" + (note ? " · " + note : "")); },
-    mood:      function(emoji, note){ send("mood", emoji + (note ? " " + note : "")); }
+    writing:   function(title, text){ return send("writing",   title + (text ? " · " + text : "")); },
+    meditation:function(duration, note){ return send("meditation", "冥想 " + duration + " 分钟" + (note ? " · " + note : "")); },
+    mood:      function(emoji, note){ return send("mood", emoji + (note ? " " + note : "")); }
   };
 })();

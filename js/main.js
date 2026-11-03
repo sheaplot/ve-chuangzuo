@@ -65,9 +65,12 @@
 
   const startBtn = document.getElementById("start-create-btn");
   const saveBtn = document.getElementById("save-btn");
+  const publishBtn = document.getElementById("publish-btn");
   const storyText = document.getElementById("story-text");
   const aiHint = document.getElementById("ai-hint");
-  const goCommunityBtn = document.getElementById("go-community-btn");
+  const suggestionsBox = document.getElementById("ai-suggestions");
+  const suggestionTip = document.getElementById("ai-suggestion-tip");
+  const refreshBtn = document.getElementById("ai-refresh");
 
   let advanceTimer = null;
 
@@ -94,8 +97,11 @@
 
     state.stepIndex = clamped;
 
-    // 进入写作屏时，生成示例 AI 引导语
-    if (clamped === STEP_ORDER.length - 1) renderAiHint();
+    // 进入写作屏时，生成示例 AI 引导语与写作提示
+    if (clamped === STEP_ORDER.length - 1) {
+      renderAiHint();
+      renderSuggestions();
+    }
   }
 
   // 返回上一屏（保留已选状态）
@@ -212,6 +218,90 @@
     aiHint.append(note);
   }
 
+  // ---------- 写作中的 AI 提示按钮 ----------
+  const SUGGESTION_POOL = [
+    { label: "补一个未解释的细节", tip: "在刚才那句话后面，加一个具体的细节：一个动作、一种气味，或一个数字，先不要解释它。" },
+    { label: "换一个意外视角", tip: "试着从对方、旁观者，或一个物件的视角重写这一段。" },
+    { label: "加一句当时的对话", tip: "写一句你当时听到或说出的话，不用解释，让读者自己感受。" },
+    { label: "从一帧画面写起", tip: "先写你看到的一个静止画面，再让动作发生。" },
+    { label: "删掉一句解释", tip: "找一句解释性的句子，删掉它，让细节自己说话。" },
+    { label: "让一个人物做选择", tip: "给故事里的人一个具体选择：留下还是离开？说还是不说？" },
+    { label: "写写身体的感觉", tip: "写一个身体感受：心跳、手心、呼吸、温度。" },
+    { label: "把时间停住", tip: "选一个瞬间，放慢它，用三句话写同一秒。" },
+    { label: "从一个物件开始", tip: "写一个出现在故事里的物件，它可能藏着一段记忆。" },
+    { label: "加一个反转", tip: "在结尾前加一个出乎意料但合理的变化。" },
+    { label: "写写气味或声音", tip: "加入一种气味或声音，让场景有现场感。" },
+    { label: "写一句没说出口的话", tip: "写一句主角当时没说出口的话。" }
+  ];
+  const SHORT_SUGGESTIONS = [
+    { label: "先写一个具体画面", tip: "不要先解释背景，直接写你看到的一个画面：光线、位置、一个人。" },
+    { label: "从今天的一件小事开始", tip: "写下今天发生的一个小瞬间，哪怕只有一句话。" },
+    { label: "只写三句话", tip: "先只写三句话：发生了什么、你做了什么、你当时怎么想。" }
+  ];
+  const LONG_SUGGESTIONS = [
+    { label: "收束到一个画面", tip: "结尾不要总结道理，回到一个具体的画面或动作。" },
+    { label: "把最想说的那句提前", tip: "找到全篇最有力的一句话，试着把它挪到开头。" },
+    { label: "删掉最后一段", tip: "试着删掉最后一段，看看故事是不是反而更完整。" }
+  ];
+  const DIALOGUE_SUGGESTIONS = [
+    { label: "加一句当时的对话", tip: "写一句真实的对话，不用写谁说，让语气自己交代人物。" },
+    { label: "写一句没说出口的话", tip: "写一句主角当时没说出口的话，放在心里也好。" }
+  ];
+  const PERSPECTIVE_SUGGESTIONS = [
+    { label: "换一个意外视角", tip: "把'我'换成对方，或换成一个旁观者，重写其中一段。" },
+    { label: "写写对方的表情", tip: "写一个对方的表情或动作，不解释它代表什么。" }
+  ];
+
+  let suggestionTimer = null;
+  let lastSuggestionLength = -1;
+
+  function suggestionCandidates(text) {
+    let list = SUGGESTION_POOL.slice();
+    if (text.length < 80) list = list.concat(SHORT_SUGGESTIONS);
+    if (text.length > 180) list = list.concat(LONG_SUGGESTIONS);
+    if (!/[“”"「」]/.test(text)) list = list.concat(DIALOGUE_SUGGESTIONS);
+    if (/我/.test(text)) list = list.concat(PERSPECTIVE_SUGGESTIONS);
+
+    const seen = {};
+    return list.filter(function (item) {
+      if (seen[item.label]) return false;
+      seen[item.label] = true;
+      return true;
+    });
+  }
+
+  function renderSuggestions() {
+    if (!suggestionsBox) return;
+    const text = storyText ? storyText.value : "";
+    const pool = suggestionCandidates(text).sort(function () { return Math.random() - 0.5; });
+    const picked = pool.slice(0, 3);
+
+    suggestionsBox.innerHTML = "";
+    picked.forEach(function (item) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "ai-suggestion";
+      btn.textContent = item.label;
+      btn.addEventListener("click", function () {
+        if (suggestionTip) suggestionTip.textContent = "提示：" + item.tip;
+        if (storyText) storyText.focus();
+      });
+      suggestionsBox.appendChild(btn);
+    });
+    if (suggestionTip) suggestionTip.textContent = "";
+    lastSuggestionLength = text.length;
+  }
+
+  function scheduleSuggestions() {
+    clearTimeout(suggestionTimer);
+    suggestionTimer = setTimeout(function () {
+      const len = storyText ? storyText.value.length : 0;
+      if (lastSuggestionLength < 0 || Math.abs(len - lastSuggestionLength) >= 10) {
+        renderSuggestions();
+      }
+    }, 900);
+  }
+
   // 把毫秒时间差转成人类可读的相对时间（如 "刚才"、"2小时前"、"3天前"）
   function formatRelativeTime(date) {
     const now = new Date();
@@ -227,58 +317,95 @@
   }
 
   // 保存草稿 / 发布到社群：全部只写入浏览器本地，不上传服务器
-  function saveDraft() {
-    if (storyText) state.story = storyText.value;
+  // 保存到本地草稿（跳转前兜底，避免内容丢失）
+  function persistLocalDraft(story) {
+    const draft = {
+      mood: state.mood,
+      place: state.place,
+      time: state.time,
+      angle: state.angle,
+      story: story
+    };
+    try {
+      localStorage.setItem("ve-draft", JSON.stringify(draft));
+    } catch (err) {}
+  }
 
-    const scope = document.querySelector('input[name="publish-scope"]:checked').value;
+  function firstLineOf(story) {
+    return story.split(/\r?\n/).map(function (s) { return s.trim(); }).filter(Boolean)[0] || "未命名创作";
+  }
 
-    if (scope === "community") {
-      const post = {
-        nickname: "匿名旅人",
+  function recordWriting(story) {
+    if (window.veRecord && typeof veRecord.writing === "function") {
+      const p = veRecord.writing(firstLineOf(story), story.length + " 字");
+      return p && typeof p.then === "function" ? p : Promise.resolve();
+    }
+    return Promise.resolve();
+  }
+
+  // 去保存：写入个人中心记录，然后去个人主页查看
+  function saveStory() {
+    const story = storyText ? storyText.value.trim() : "";
+    if (!story) {
+      alert("先写点什么再保存");
+      return;
+    }
+
+    persistLocalDraft(story);
+
+    if (!localStorage.getItem("ve_token")) {
+      alert("保存到个人中心需要先登录或注册，正在前往个人中心");
+      window.location.href = "profile.html";
+      return;
+    }
+
+    recordWriting(story).then(function () {
+      window.location.href = "profile.html";
+    });
+  }
+
+  // 去发布：确认后发布到社群；未登录先去个人中心登录/注册
+  function publishStory() {
+    const story = storyText ? storyText.value.trim() : "";
+    if (!story) {
+      alert("先写点什么再发布");
+      return;
+    }
+
+    if (!localStorage.getItem("ve_token")) {
+      persistLocalDraft(story);
+      alert("发布到社群需要先注册或登录，正在前往个人中心");
+      window.location.href = "profile.html";
+      return;
+    }
+
+    if (!window.confirm("发布后会出现在社群中，是否确认发布？")) return;
+
+    const moodBtn = document.querySelector(".mood-btn.selected");
+    const mood = moodBtn ? moodBtn.textContent.trim() : "😌平静";
+    const nickname = localStorage.getItem("ve_user") || "匿名旅人";
+
+    try {
+      const posts = JSON.parse(localStorage.getItem("ve-posts") || "[]");
+      posts.unshift({
+        nickname: nickname,
         me: true,
-        mood: state.mood || "平静",
-        story: state.story,
+        mood: mood,
+        story: story,
         time: formatRelativeTime(new Date()),
         likes: 0,
         comments: 0,
         liked: false,
         followed: false,
         createdAt: new Date().getTime()
-      };
+      });
+      localStorage.setItem("ve-posts", JSON.stringify(posts));
+    } catch (err) {}
 
-      try {
-        const posts = JSON.parse(localStorage.getItem("ve-posts") || "[]");
-        posts.unshift(post);
-        localStorage.setItem("ve-posts", JSON.stringify(posts));
-        showToast("已发布到社群 🎉");
-        if (goCommunityBtn) goCommunityBtn.hidden = false;
-      } catch (err) {
-        showToast("发布失败，请检查浏览器隐私设置");
-      }
-    } else {
-      const draft = {
-        mood: state.mood,
-        place: state.place,
-        time: state.time,
-        angle: state.angle,
-        story: state.story
-      };
-
-      try {
-        localStorage.setItem("ve-draft", JSON.stringify(draft));
-        showToast("已保存为草稿");
-        if (goCommunityBtn) goCommunityBtn.hidden = true;
-      } catch (err) {
-        showToast("草稿保存失败，请检查浏览器隐私设置");
-      }
-    }
-
-    // 记录到个人中心（登录后自动，未登录仅提示）
-    var savedStory = (state.story || "").trim();
-    if (savedStory) {
-      var firstLine = savedStory.split(/\r?\n/).map(function (s) { return s.trim(); }).filter(Boolean)[0] || "未命名创作";
-      if (window.veRecord) veRecord.writing(firstLine, savedStory.length + " 字");
-    }
+    recordWriting(story).then(function () {
+      alert("已发布到社群 🎉");
+      window.location.href = "community.html";
+    });
   }
 
   // 轻提示（toast）
@@ -344,15 +471,22 @@
     });
   }
 
-  // 保存草稿按钮
+  // 保存 / 发布按钮
   if (saveBtn) {
-    saveBtn.addEventListener("click", saveDraft);
+    saveBtn.addEventListener("click", saveStory);
+  }
+  if (publishBtn) {
+    publishBtn.addEventListener("click", publishStory);
+  }
+  if (refreshBtn) {
+    refreshBtn.addEventListener("click", renderSuggestions);
   }
 
-  // 正文内容同步进状态
+  // 正文内容同步进状态，并根据文本刷新 AI 提示
   if (storyText) {
     storyText.addEventListener("input", function () {
       state.story = storyText.value;
+      scheduleSuggestions();
     });
   }
 

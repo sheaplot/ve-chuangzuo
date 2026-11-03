@@ -1292,9 +1292,8 @@ svg {
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
-#save-btn {
-  margin-top: 26px;
-  padding: 12px 30px;
+.writing-action {
+  padding: 12px 34px;
   border: 1px solid var(--accent);
   border-radius: 999px;
   background: var(--accent);
@@ -1304,13 +1303,93 @@ svg {
   font-weight: 600;
   line-height: 1.6;
   letter-spacing: 0.02em;
+  min-height: 48px;
   cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-#save-btn:hover {
+.writing-action:hover {
   border-color: var(--accent-deep);
   background: var(--accent-deep);
+}
+
+.writing-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.ai-suggestions-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 90%;
+  max-width: 720px;
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.ai-suggestions-head button {
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--accent-deep);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.ai-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 90%;
+  max-width: 720px;
+  margin-top: 8px;
+}
+
+.ai-suggestion {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 9px 16px;
+  border: 1px solid var(--accent-line);
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.ai-suggestion:hover {
+  border-color: var(--accent-deep);
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.ai-suggestion-tip {
+  width: 90%;
+  max-width: 720px;
+  min-height: 1.7em;
+  margin-top: 10px;
+  color: var(--accent-deep);
+  font-size: 0.84rem;
+  line-height: 1.7;
+  text-align: left;
 }
 
 .step-writing .writing-note {

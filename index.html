@@ -124,12 +124,18 @@
     <section id="step-writing" class="step step-writing" hidden>
       <div id="ai-hint">AI 引导示例将在下一步实现</div>
       <textarea id="story-text" placeholder="从你想说的第一句话开始……"></textarea>
-      <button type="button" id="save-btn">保存草稿</button>
-      <div class="publish-options" role="radiogroup" aria-label="保存范围">
-        <label class="publish-option"><input type="radio" name="publish-scope" value="draft" checked> 仅自己可见</label>
-        <label class="publish-option"><input type="radio" name="publish-scope" value="community"> 发布到社群</label>
+
+      <div class="ai-suggestions-head">
+        <span>写不下去时，可以试试：</span>
+        <button type="button" id="ai-refresh">换一批</button>
       </div>
-      <button type="button" id="go-community-btn" hidden class="go-community-btn">去社群看看 →</button>
+      <div id="ai-suggestions" class="ai-suggestions" aria-live="polite"></div>
+      <p id="ai-suggestion-tip" class="ai-suggestion-tip" aria-live="polite"></p>
+
+      <div class="writing-actions">
+        <button type="button" id="save-btn" class="writing-action">去保存</button>
+        <button type="button" id="publish-btn" class="writing-action">去发布</button>
+      </div>
       <p class="writing-note">AI 引导为示例，正式版将接入真实 AI</p>
     </section>
 
