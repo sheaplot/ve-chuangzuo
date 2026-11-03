@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人中心 — ve创作</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5faf6;color:#24382c;line-height:1.6}
+    .site-header{background:#fff;border-bottom:1px solid #e3efe6;padding:14px 24px}
+    .header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+    .brand{font-weight:700;font-size:18px;color:#2f6b4f;text-decoration:none}
+    nav ul{display:flex;gap:18px;list-style:none;flex-wrap:wrap}
+    nav a{color:#2f6b4f;text-decoration:none;font-size:14px}
+    nav a:hover{text-decoration:underline}
+    main{max-width:700px;margin:40px auto;padding:0 20px}
+    h1{font-size:26px;margin-bottom:8px;color:#1f5c40}
+    .card{background:#fff;border:1px solid #e3efe6;border-radius:14px;padding:22px;margin-bottom:18px}
+    label{display:block;font-size:13px;color:#51705f;margin:12px 0 6px}
+    input[type=text],input[type=password],textarea{width:100%;padding:10px 12px;border:1px solid #cfdfd3;border-radius:8px;font-size:14px;background:#fff;font-family:inherit}
+    textarea{min-height:72px;resize:vertical}
+    .btn{background:#2f6b4f;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;cursor:pointer}
+    .btn:hover{background:#265840}
+    .btn-ghost{background:#eef6f1;color:#2f6b4f}
+    .hidden{display:none}
+    .tabbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+    .tab{padding:8px 14px;border:1px solid #cfdfd3;border-radius:8px;cursor:pointer;font-size:14px;color:#51705f;background:#fff}
+    .tab.active{background:#2f6b4f;color:#fff;border-color:#2f6b4f}
+    .rec{background:#f2f8f4;border-radius:10px;padding:12px;margin-bottom:10px;font-size:14px}
+    .rec .date{font-size:12px;color:#7a9a88;margin-top:4px}
+    .rec .del{float:right;color:#c05555;cursor:pointer;font-size:12px}
+    .mood-pick{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+    .mood{font-size:20px;padding:6px 10px;border:1px solid #cfdfd3;border-radius:10px;cursor:pointer;background:#fff}
+    .mood.sel{background:#dff0e5;border-color:#2f6b4f}
+    .msg{font-size:13px;color:#c05555;margin-top:8px}
+    .userinfo{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+
+    .mood-scroll{overflow-x:auto;margin-top:16px;padding-bottom:4px}
+    .mood-table{border-collapse:separate;border-spacing:3px}
+    .mood-table th{font-size:11px;color:#7a9a88;font-weight:400;text-align:center;min-width:28px;vertical-align:bottom;height:18px}
+    .mood-table .wd{font-size:11px;color:#7a9a88;text-align:right;padding-right:4px}
+    .mood-table .cell{width:26px;height:26px;border-radius:6px;background:#edf4ef;text-align:center;line-height:26px;font-size:15px}
+    .mood-table .cell.mood{background:#dff0e5;border:1px solid #bcdcc9}
+    .mood-head{display:flex;justify-content:space-between;align-items:baseline;margin-top:20px;flex-wrap:wrap;gap:6px}
+    .mood-count{font-size:13px;color:#51705f}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">ve创作</a>
+      <nav>
+        <ul>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="inspiration.html">时空灵感</a></li>
+          <li><a href="community.html">社群</a></li>
+          <li><a href="meditation.html">冥想</a></li>
+          <li><a href="profile.html" style="font-weight:700">个人中心</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 未登录 -->
+    <section id="view-login" class="card">
+      <h1>欢迎回来</h1>
+      <p style="color:#51705f;font-size:14px">登录后记录你的冥想、写作与心情。</p>
+      <label>用户名</label>
+      <input id="login-user" type="text" placeholder="给自己起个名字">
+      <label>密码</label>
+      <input id="login-pass" type="password" placeholder="至少 4 位">
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn" id="btn-login">登录</button>
+        <button class="btn btn-ghost" id="btn-register">注册新账号</button>
+      </div>
+      <p class="msg" id="login-msg"></p>
+    </section>
+
+    <!-- 已登录 -->
+    <section id="view-profile" class="hidden">
+      <div class="card userinfo">
+        <h1>你好，<span id="who"></span></h1>
+        <button class="btn btn-ghost" id="btn-logout">退出登录</button>
+      </div>
+
+      <div class="card" style="padding-top:16px">
+        <span style="font-size:13px;color:#51705f">今天心情</span>
+        <div class="mood-pick" id="q-mood-picks">
+          <span class="mood" data-m="😊">😊</span>
+          <span class="mood" data-m="😌">😌</span>
+          <span class="mood" data-m="🤗">🤗</span>
+          <span class="mood" data-m="😐">😐</span>
+          <span class="mood" data-m="😔">😔</span>
+          <span class="mood" data-m="😢">😢</span>
+          <span class="mood" data-m="😤">😤</span>
+          <span class="mood" data-m="🌿">🌿</span>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+          <input id="q-mood-text" type="text" placeholder="想写一句就写（可选）" style="flex:1;min-width:180px">
+          <button class="btn" id="btn-q-mood">记一笔</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="tabbar">
+          <div class="tab active" data-t="meditation">🧘 冥想</div>
+          <div class="tab" data-t="writing">✍️ 写作</div>
+          <div class="tab" data-t="mood">💚 心情</div>
+        </div>
+
+        <div id="panel-meditation">
+          <label>这次的冥想感受</label>
+          <textarea id="med-text" placeholder="例如：跟着引导放松了 10 分钟，心跳慢下来了…"></textarea>
+          <button class="btn" onclick="addRec('meditation')">保存冥想记录</button>
+          <div id="list-meditation" style="margin-top:14px"></div>
+        </div>
+
+        <div id="panel-writing" class="hidden">
+          <label>这次的写作记录</label>
+          <textarea id="write-text" placeholder="例如：写完了《旅鸽玛莎》的灵感小故事…"></textarea>
+          <button class="btn" onclick="addRec('writing')">保存写作记录</button>
+          <div id="list-writing" style="margin-top:14px"></div>
+        </div>
+
+        <div id="panel-mood" class="hidden">
+          <label>今天的心情</label>
+          <div class="mood-pick" id="mood-picks">
+            <span class="mood" data-m="😊">😊</span>
+            <span class="mood" data-m="😌">😌</span>
+            <span class="mood" data-m="🤗">🤗</span>
+            <span class="mood" data-m="😐">😐</span>
+            <span class="mood" data-m="😔">😔</span>
+            <span class="mood" data-m="😢">😢</span>
+            <span class="mood" data-m="😤">😤</span>
+            <span class="mood" data-m="🌿">🌿</span>
+          </div>
+          <textarea id="mood-text" placeholder="想写几句就写几句（可选）" style="min-height:48px"></textarea>
+          <button class="btn" onclick="addRec('mood')">保存心情记录</button>
+
+          <div class="mood-head">
+            <span class="mood-count" id="mood-count"></span>
+            <span class="mood-count" style="font-size:12px;color:#8aa79a">心情足迹 · 一格 = 一天</span>
+          </div>
+          <div class="mood-scroll">
+            <div id="mood-grid"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/record.js"></script>
+  <script>
+    var TOKEN = localStorage.getItem("ve_token");
+    var USERNAME = localStorage.getItem("ve_user");
+    var currentMood = "";
+
+    function $(id){ return document.getElementById(id); }
+    if (TOKEN) enter();
+
+    $("btn-login").onclick = function(){ auth("/api/login"); };
+    $("btn-register").onclick = function(){ auth("/api/register"); };
+    function auth(url){
+      var u = $("login-user").value.trim(), p = $("login-pass").value;
+      fetch(url, {method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({username:u, password:p})})
+        .then(function(r){return r.json();}).then(function(res){
+          if(!res.ok){ $("login-msg").textContent = res.error || "出错了"; return; }
+          localStorage.setItem("ve_token", res.token);
+          localStorage.setItem("ve_user", res.username);
+          TOKEN = res.token; USERNAME = res.username;
+          enter();
+        });
+    }
+    function enter(){
+      $("view-login").classList.add("hidden");
+      $("view-profile").classList.remove("hidden");
+      $("who").textContent = USERNAME;
+      load();
+    }
+    function logout(){
+      localStorage.removeItem("ve_token"); localStorage.removeItem("ve_user");
+      location.reload();
+    }
+    $("btn-logout").onclick = logout;
+
+    var qMood = "";
+    document.querySelectorAll("#q-mood-picks .mood").forEach(function(m){
+      m.onclick = function(){
+        document.querySelectorAll("#q-mood-picks .mood").forEach(function(x){ x.classList.remove("sel"); });
+        m.classList.add("sel"); qMood = m.getAttribute("data-m");
+      };
+    });
+    $("btn-q-mood").onclick = function(){
+      if(!qMood){ alert("先选一个心情"); return; }
+      var note = $("q-mood-text").value.trim();
+      veRecord.mood(qMood, note);
+      $("q-mood-text").value = "";
+      load();
+    };
+
+    document.querySelectorAll(".tab").forEach(function(tab){
+      tab.onclick = function(){
+        document.querySelectorAll(".tab").forEach(function(t){ t.classList.remove("active"); });
+        tab.classList.add("active");
+        ["meditation","writing","mood"].forEach(function(t){
+          $("panel-"+t).classList.toggle("hidden", t !== tab.getAttribute("data-t"));
+        });
+      };
+    });
+
+    document.querySelectorAll("#mood-picks .mood").forEach(function(m){
+      m.onclick = function(){
+        document.querySelectorAll("#mood-picks .mood").forEach(function(x){ x.classList.remove("sel"); });
+        m.classList.add("sel"); currentMood = m.getAttribute("data-m");
+      };
+    });
+
+    function addRec(type){
+      var text;
+      if(type==="mood"){
+        if(!currentMood){ alert("先选一个心情"); return; }
+        text = currentMood + ( $("mood-text").value ? " " + $("mood-text").value.trim() : "");
+      } else {
+        text = (type==="meditation" ? $("med-text").value : $("write-text").value).trim();
+        if(!text){ alert("写点什么再保存"); return; }
+      }
+      fetch("/api/records", {method:"POST", headers:{"Content-Type":"application/json","x-token":TOKEN},
+        body: JSON.stringify({type:type, text:text})})
+        .then(function(r){return r.json();}).then(function(res){
+          if(!res.ok){ alert(res.error || "保存失败，请重新登录"); }
+          load();
+        });
+    }
+
+    function load(){
+      fetch("/api/records", {headers:{"x-token":TOKEN}}).then(function(r){return r.json();}).then(function(res){
+        if(!res.ok){ alert("登录已失效，请重新登录"); logout(); return; }
+        ["meditation","writing","mood"].forEach(function(t){
+          var list = res.records.filter(function(r){ return r.type===t; });
+          render(t, list);
+        });
+      });
+    }
+
+    function render(type, arr){
+      if(type==="mood"){ renderMoodGrid(arr); return; }
+      var box = $("list-"+type);
+      if(!arr.length){ box.innerHTML = '<p style="color:#8aa79a;font-size:13px">还没有记录。</p>'; return; }
+      box.innerHTML = arr.slice().reverse().map(function(r){
+        return '<div class="rec"><span class="del" onclick="delRec(\''+r.id+'\')">删除</span>'+
+          '<div>' + r.text.replace(/</g,"&lt;") + '</div>'+
+          '<div class="date">' + (r.date||"") + '</div></div>';
+      }).join("");
+    }
+
+    function moodEmoji(text){
+      var moods=["😊","😌","🤗","😐","😔","😢","😤","🌿"];
+      for(var i=0;i<moods.length;i++){ if(String(text).indexOf(moods[i])===0) return moods[i]; }
+      return "🌿";
+    }
+    function monthAbbr(m){
+      var a=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]; return a[m];
+    }
+    function renderMoodGrid(records){
+      var grid = $("mood-grid");
+      var today = new Date(); today.setHours(0,0,0,0);
+      var moodMap = {};
+      records.forEach(function(r){ moodMap[r.date] = r.text; });
+
+      var start = new Date(today); start.setDate(start.getDate() - 51*7);
+      start.setDate(start.getDate() - ((start.getDay()+6)%7));
+
+      var weeks = [];
+      var d = new Date(start);
+      while(d <= today){ weeks.push(new Date(d)); d.setDate(d.getDate()+7); }
+
+      var months = weeks.map(function(ws){
+        for(var i=0;i<7;i++){
+          var dd = new Date(ws); dd.setDate(ws.getDate()+i);
+          if(dd.getDate()===1 && dd<=today) return monthAbbr(dd.getMonth());
+        }
+        return "";
+      });
+
+      var days = ["Mon","","Wed","","Fri","",""];
+      var html = "<table class='mood-table'><tr><th></th>";
+      weeks.forEach(function(ws,i){ html += "<th>"+months[i]+"</th>"; });
+      html += "</tr>";
+      for(var wd=0; wd<7; wd++){
+        html += "<tr><td class='wd'>"+days[wd]+"</td>";
+        weeks.forEach(function(ws){
+          var dd = new Date(ws); dd.setDate(ws.getDate()+wd);
+          if(dd > today){ html += "<td></td>"; return; }
+          var key = dd.getFullYear()+"-"+("0"+(dd.getMonth()+1)).slice(-2)+"-"+("0"+dd.getDate()).slice(-2);
+          var mood = moodMap[key];
+          if(mood){
+            html += "<td class='cell mood' title='"+key+" · "+String(mood).replace(/</g,'&lt;')+"'>"+moodEmoji(mood)+"</td>";
+          } else {
+            html += "<td class='cell' title='"+key+"'></td>";
+          }
+        });
+        html += "</tr>";
+      }
+      html += "</table>";
+      grid.innerHTML = html;
+      $("mood-count").textContent = "已记录 " + records.length + " 天的心情";
+    }
+
+    function delRec(id){
+      fetch("/api/records/"+id, {method:"DELETE", headers:{"x-token":TOKEN}})
+        .then(function(r){return r.json();}).then(load);
+    }
+  </script>
+</body>
+</html>

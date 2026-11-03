@@ -50,16 +50,21 @@
     var tagsHtml = (s.tags || []).map(function (t) {
       return "<li>" + t + "</li>";
     }).join("");
+    function cardLink(inner, cls) {
+      return s.link
+        ? '<a class="' + (cls || "") + '" href="' + s.link + '" target="_blank" rel="noopener" aria-label="打开：' + s.title + '">' + inner + "</a>"
+        : inner;
+    }
     return (
-      '<figure class="story-figure">' +
-      '<img src="' + s.image + '" alt="' + (s.alt || s.title) + '" loading="lazy">' +
-      (s.caption ? '<figcaption>' + s.caption + "</figcaption>" : "") +
-      '</figure>' +
+      cardLink('<figure class="story-figure">' +
+        '<img src="' + s.image + '" alt="' + (s.alt || s.title) + '" loading="lazy">' +
+        (s.caption ? '<figcaption>' + s.caption + "</figcaption>" : "") +
+        '</figure>', "") +
       '<p class="story-badge story-badge-real">真实故事</p>' +
-      '<h3>' + s.title + '</h3>' +
+      cardLink('<h3>' + s.title + "</h3>", "") +
       '<p>' + s.desc + '</p>' +
       '<ul class="story-tags" aria-label="故事标签">' + tagsHtml + "</ul>" +
-      '<a class="story-link-primary" href="' + s.link + '" target="_blank" rel="noopener">阅读完整故事</a>' +
+      cardLink('<span class="story-link-primary">阅读完整故事</span>', "story-link-primary") +
       sourcesHtml +
       '<a href="index.html">以此为灵感，开始写作</a>'
     );

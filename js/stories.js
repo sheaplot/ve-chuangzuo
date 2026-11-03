@@ -121,7 +121,7 @@ const STORIES = [
     tags: ["366 年始建 · 敦煌", "文化遗产", "壁画保护"],
     image: "https://commons.wikimedia.org/wiki/Special:FilePath/Dunhuang%20Mogao%20Ku%202013.12.31%2012-30-18.jpg?width=800",
     caption: "图源：Wikimedia Commons · Zhangzhugang · CC BY-SA 4.0",
-    link: "https://www.dha.ac.cn/",
+    link: "https://whc.unesco.org/en/list/440/",
     sources: [
       { name: "UNESCO 世界遗产", url: "https://whc.unesco.org/en/list/440/" }
     ]
@@ -160,9 +160,9 @@ const STORIES = [
     tags: ["1977 · 深海", "化能合成", "深海生物"],
     image: "https://commons.wikimedia.org/wiki/Special:FilePath/Hydrothermal_vent.jpg?width=800",
     caption: "图源：Wikimedia Commons · NOAA · Public domain",
-    link: "https://ocean.noaa.gov/",
+    link: "https://research.noaa.gov/scientists-discover-hydrothermal-vent-activity-along-the-puy-de-folles-vent-field/",
     sources: [
-      { name: "美国海洋与大气管理局", url: "https://ocean.noaa.gov/" }
+      { name: "美国国家海洋和大气管理局(NOAA)研究", url: "https://research.noaa.gov/scientists-discover-hydrothermal-vent-activity-along-the-puy-de-folles-vent-field/" }
     ]
   },
   {
@@ -201,9 +201,9 @@ const STORIES = [
     tags: ["芬兰", "自然权利", "习惯法"],
     image: "https://commons.wikimedia.org/wiki/Special:FilePath/Forest_in_Finland.jpg?width=800",
     caption: "图源：Wikimedia Commons · 公众领域",
-    link: "https://www.metsa.fi/",
+    link: "https://en.wikipedia.org/wiki/Everyman%27s_right",
     sources: [
-      { name: "芬兰林业局", url: "https://www.metsa.fi/" }
+      { name: "Wikipedia · Everyman's right", url: "https://en.wikipedia.org/wiki/Everyman%27s_right" }
     ]
   },
   // ---------- 追加：占位图片，待替换实拍图 ----------
@@ -215,10 +215,9 @@ const STORIES = [
     tags: ["1987·美国加州", "猛禽", "人工繁育"],
     image: "https://picsum.photos/800/600?random=101",
     caption: "图源：公开资料（待替换实拍图）",
-    link: "https://www.fws.gov/",
+    link: "https://en.wikipedia.org/wiki/California_condor",
     sources: [
-      { name: "美国鱼类及野生动物管理局", url: "https://www.fws.gov/" },
-      { name: "新华网", url: "https://www.news.cn/" }
+      { name: "Wikipedia · California condor", url: "https://en.wikipedia.org/wiki/California_condor" }
     ]
   },
   {
@@ -229,10 +228,9 @@ const STORIES = [
     tags: ["2022·长江", "鱼类", "野外灭绝"],
     image: "https://picsum.photos/800/600?random=102",
     caption: "图源：公开资料（待替换实拍图）",
-    link: "http://www.cafi.ac.cn/",
+    link: "https://en.wikipedia.org/wiki/Chinese_sturgeon",
     sources: [
-      { name: "中国水产科学研究院长江水产研究所", url: "http://www.cafi.ac.cn/" },
-      { name: "新华网", url: "https://www.news.cn/" }
+      { name: "Wikipedia · Chinese sturgeon", url: "https://en.wikipedia.org/wiki/Chinese_sturgeon" }
     ]
   },
   {
@@ -243,10 +241,9 @@ const STORIES = [
     tags: ["2008·云南华坪", "教育", "女性力量"],
     image: "https://picsum.photos/800/600?random=103",
     caption: "图源：公开资料（待替换实拍图）",
-    link: "http://www.people.com.cn/",
+    link: "https://en.wikipedia.org/wiki/Zhang_Guimei",
     sources: [
-      { name: "人民日报", url: "http://www.people.com.cn/" },
-      { name: "新华网", url: "https://www.news.cn/" }
+      { name: "Wikipedia · Zhang Guimei", url: "https://en.wikipedia.org/wiki/Zhang_Guimei" }
     ]
   },
   {
@@ -257,10 +254,9 @@ const STORIES = [
     tags: ["1973·杂交水稻", "粮食安全", "科学家"],
     image: "https://picsum.photos/800/600?random=104",
     caption: "图源：公开资料（待替换实拍图）",
-    link: "https://www.cas.cn/",
+    link: "https://en.wikipedia.org/wiki/Yuan_Longping",
     sources: [
-      { name: "中国科学院", url: "https://www.cas.cn/" },
-      { name: "新华网", url: "https://www.news.cn/" }
+      { name: "Wikipedia · Yuan Longping", url: "https://en.wikipedia.org/wiki/Yuan_Longping" }
     ]
   },
   {
@@ -271,10 +267,9 @@ const STORIES = [
     tags: ["1972·不丹", "GNH", "小国大智慧"],
     image: "https://picsum.photos/800/600?random=105",
     caption: "图源：公开资料（待替换实拍图）",
-    link: "https://www.gov.bt/",
+    link: "https://en.wikipedia.org/wiki/Gross_national_happiness",
     sources: [
-      { name: "不丹政府", url: "https://www.gov.bt/" },
-      { name: "联合国", url: "https://www.un.org/" }
+      { name: "Wikipedia · Gross national happiness", url: "https://en.wikipedia.org/wiki/Gross_national_happiness" }
     ]
   },
   {
@@ -285,10 +280,10 @@ const STORIES = [
     tags: ["930年·冰岛", "世界最老议会", "民主源头"],
     image: "https://picsum.photos/800/600?random=106",
     caption: "图源：公开资料（待替换实拍图）",
-    link: "https://www.althingi.is/",
+    link: "https://whc.unesco.org/en/list/1152/",
     sources: [
-      { name: "冰岛议会", url: "https://www.althingi.is/" },
-      { name: "联合国教科文组织", url: "https://whc.unesco.org/" }
+      { name: "Wikipedia · Althing", url: "https://en.wikipedia.org/wiki/Althing" },
+      { name: "UNESCO · 列 1152", url: "https://whc.unesco.org/en/list/1152/" }
     ]
   },
   {
@@ -299,10 +294,9 @@ const STORIES = [
     tags: ["2021·中国", "反食品浪费", "立法"],
     image: "https://picsum.photos/800/600?random=107",
     caption: "图源：公开资料（待替换实拍图）",
-    link: "http://www.npc.gov.cn/",
+    link: "https://en.wikipedia.org/wiki/Food_waste",
     sources: [
-      { name: "全国人大常委会", url: "http://www.npc.gov.cn/" },
-      { name: "新华网", url: "https://www.news.cn/" }
+      { name: "Wikipedia · Food waste", url: "https://en.wikipedia.org/wiki/Food_waste" }
     ]
   },
   {
@@ -313,10 +307,9 @@ const STORIES = [
     tags: ["1911·太平洋", "海獭", "海洋生态"],
     image: "https://picsum.photos/800/600?random=108",
     caption: "图源：公开资料（待替换实拍图）",
-    link: "https://www.fws.gov/",
+    link: "https://en.wikipedia.org/wiki/Sea_otter",
     sources: [
-      { name: "美国鱼类及野生动物管理局", url: "https://www.fws.gov/" },
-      { name: "新华网", url: "https://www.news.cn/" }
+      { name: "Wikipedia · Sea otter", url: "https://en.wikipedia.org/wiki/Sea_otter" }
     ]
   },
   {
@@ -327,10 +320,9 @@ const STORIES = [
     tags: ["2017·上海", "二手循环", "创业"],
     image: "https://picsum.photos/800/600?random=109",
     caption: "图源：公开资料（待替换实拍图）",
-    link: "https://www.douzhuayu.com/",
+    link: "https://www.duozhuayu.com/support/environmental-exploration",
     sources: [
-      { name: "多抓鱼官网", url: "https://www.douzhuayu.com/" },
-      { name: "新华网", url: "https://www.news.cn/" }
+      { name: "多抓鱼 · 环保探索", url: "https://www.duozhuayu.com/support/environmental-exploration" }
     ]
   },
   {
@@ -341,10 +333,9 @@ const STORIES = [
     tags: ["2022·新西兰", "动物福利", "立法"],
     image: "https://picsum.photos/800/600?random=110",
     caption: "图源：公开资料（待替换实拍图）",
-    link: "https://www.govt.nz/",
+    link: "https://en.wikipedia.org/wiki/Animal_welfare",
     sources: [
-      { name: "新西兰政府", url: "https://www.govt.nz/" },
-      { name: "联合国", url: "https://www.un.org/" }
+      { name: "Wikipedia · Animal welfare", url: "https://en.wikipedia.org/wiki/Animal_welfare" }
     ]
   }
 ];

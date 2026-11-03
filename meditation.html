@@ -6,6 +6,12 @@
   <title>冥想 — ve创作</title>
   <meta name="description" content="给共情过重的心，一个停下来的地方。有时候看见越多，心里越重。这里不要求你放松，只陪你呼吸一分钟。">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .session-mood{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0}
+    .session-mood-label{font-size:14px;color:#51705f}
+    .mini-mood{font-size:20px;padding:4px 10px;border:1px solid #cfdfd3;border-radius:10px;cursor:pointer;background:#fff}
+    .mini-mood.sel{background:#dff0e5;border-color:#2f6b4f}
+  </style>
 </head>
 <body>
 
@@ -36,6 +42,7 @@
           <li><a href="inspiration.html">时空灵感</a></li>
           <li><a href="community.html">社群</a></li>
           <li><a href="meditation.html" aria-current="page">冥想</a></li>
+          <li><a href="profile.html">个人中心</a></li>
         </ul>
       </nav>
     </div>
@@ -84,7 +91,16 @@
       <div id="session-end" hidden>
         <p>你为世界做出的选择，值得被温柔对待。</p>
         <input type="text" id="feeling-input" placeholder="此刻的感受？（可选）" />
+        <div class="session-mood">
+          <span class="session-mood-label">今天的心情：</span>
+          <button type="button" class="mini-mood" data-m="😊">😊</button>
+          <button type="button" class="mini-mood" data-m="😌">😌</button>
+          <button type="button" class="mini-mood" data-m="🌿">🌿</button>
+          <button type="button" class="mini-mood" data-m="😐">😐</button>
+          <button type="button" class="mini-mood" data-m="😔">😔</button>
+        </div>
         <div class="session-actions">
+          <a href="index.html">去写作</a>
           <button type="button" id="record-btn">记录</button>
         </div>
       </div>
@@ -98,6 +114,7 @@
     </div>
   </footer>
 
+  <script src="js/record.js"></script>
   <script src="js/meditation.js"></script>
 </body>
 </html>

@@ -1,0 +1,254 @@
+% !TeX program = xelatex
+\documentclass[12pt,a4paper]{ctexart}
+
+% ---------- 宏包与基础设置 ----------
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+% 代码样式（浅色，仅用于展示项目名与键名）
+\definecolor{vegreen}{HTML}{6F8F72}
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{vegreen},
+  backgroundcolor=\color{gray!8},
+  keywordstyle=\color{vegreen}\bfseries,
+  commentstyle=\color{gray},
+  stringstyle=\color{vegreen!70!black},
+  showstringspaces=false,
+  columns=fullflexible,
+}
+
+\title{\bfseries ve创作 · 项目报告\\[2mm]
+  \large 给茻人一个讲故事的空间}
+\author{在此填写姓名}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  \noindent ve创作是「茻新计划」的在线原型 Demo，一个面向素食者、准备开始吃素的人以及关注动物权益者的
+  创作与交流空间。项目围绕一条完整的创作动线展开：从沉浸式创作流进入写作，到「时空灵感」故事库获取素材，
+  到「社群」发布与互动，再到「冥想」平复情绪。全站采用纯原生 HTML / CSS / JavaScript 实现，无框架、
+  无构建、无第三方依赖，所有数据仅保存在浏览器 localStorage。本报告梳理项目的目标、各模块功能、设计系统、
+  工具链，以及开发过程中的问题与后续计划。
+\end{abstract}
+
+\tableofcontents
+
+\section{项目目标}
+
+本次项目要完成并落地一个可交互的「创作 + 社群」网站原型，具体目标包括：
+
+\begin{enumerate}
+  \item \textbf{打通创作闭环}：让用户能从「写作」顺畅地走到「发布」再到「社群」，完成一次完整的本地闭环；
+  \item \textbf{讲好真实故事}：搭建「时空灵感」故事库，用真实故事激发写作灵感，并建立清晰的分类体系与内容红线；
+  \item \textbf{照顾好情绪}：提供冥想模块，作为创作前的放松入口，形成「灵感 → 呼吸 → 写作」的沉浸体验；
+  \item \textbf{守住本地隐私}：所有草稿、发布与互动数据只存本机浏览器，不上传任何服务器；
+  \item \textbf{练习工程能力}：在无框架前提下掌握响应式布局、CSS 瀑布流、无限加载、本地存储，并用 Git / GitHub 完成版本管理与协作。
+\end{enumerate}
+
+\section{整体架构与页面导航}
+
+项目由四个页面构成，顶部导航统一为四项：\textbf{首页 / 时空灵感 / 社群 / 冥想}，
+在四个页面间保持一致的位置与样式（胶囊按钮、固定吸顶）。
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{@{}llp{6.6cm}@{}}
+    \toprule
+    页面 & 文件 & 职责 \\
+    \midrule
+    首页 · 沉浸式创作 & \texttt{index.html} & 入口 → 情绪 → 发生地 → 时间 → 切入 → 写作 \\
+    时空灵感 & \texttt{inspiration.html} & 24 篇真实故事的瀑布流故事库 \\
+    社群 & \texttt{community.html} & 帖子流：点赞、关注、评论 \\
+    冥想 & \texttt{meditation.html} & 呼吸练习 / 4-7-8 深呼吸 / 身体扫描 \\
+    \bottomrule
+  \end{tabular}
+  \caption{页面一览}
+\end{table}
+
+共享样式集中在 \texttt{css/style.css}，通过 CSS 变量统一设计 token；交互脚本分别放在
+\texttt{js/} 目录下的 \texttt{main.js}、\texttt{stories.js}、\texttt{inspiration.js}、
+\texttt{community.js}、\texttt{meditation.js}。
+
+\section{沉浸式创作流（首页）}
+
+首页采用六步引导式创作流，逐步收集「情绪 / 地点 / 时间 / 切入角度」，最后进入写作正文：
+
+\begin{enumerate}
+  \item 入口屏：品牌语与「开始创作」；
+  \item 此刻的心情：12 个情绪胶囊（如 🌿平静、🌙孤独）+ 自定义；
+  \item 它发生在哪里：8 个场景选项 + 自定义；
+  \item 什么时候的事：时间选项 + 自定义；
+  \item 想从哪里讲起：6 个切入角度 + 自定义；
+  \item 写作正文：正文输入 + AI 引导示例 + 保存。
+\end{enumerate}
+
+进入写作屏时，会根据前四步的选择生成一句示例引导语（正式版将接入真实 AI）。保存时提供两种范围：
+
+\begin{itemize}
+  \item \textbf{仅自己可见}：写入本地草稿 \texttt{ve-draft}，提示「已保存为草稿」；
+  \item \textbf{发布到社群}：写入 \texttt{ve-posts}，提示「已发布到社群 🎉」，并出现「去社群看看 →」入口。
+\end{itemize}
+
+每一屏都支持「← 上一步」返回，已选内容会保留，避免用户在长流程中丢失选择。
+
+\section{时空灵感（故事库）}
+
+\subsection{分类体系}
+
+故事库采用\textbf{固定分类白名单}，筛选条只从白名单生成，不允许出现其他分类名：
+
+\begin{center}
+  \texttt{说再见 · 回家 · 群星闪耀 · 没人知道的角落 · 硬币的两面 · 一纸之令}
+\end{center}
+
+当前共 \textbf{24 篇}真实故事，分类分布见表~\ref{tab:cats}。
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{@{}lc@{}}
+    \toprule
+    分类 & 篇数 \\
+    \midrule
+    说再见 & 4 \\
+    回家 & 6 \\
+    群星闪耀 & 7 \\
+    没人知道的角落 & 3 \\
+    一纸之令 & 3 \\
+    硬币的两面 & 1 \\
+    \midrule
+    合计 & 24 \\
+    \bottomrule
+  \end{tabular}
+  \caption{故事分类统计}
+  \label{tab:cats}
+\end{table}
+
+\subsection{瀑布流与无限流}
+
+卡片区使用 CSS 多列布局（\texttt{column-count}）实现瀑布流：桌面 3 列、手机 2 列，卡片高度随图片与
+文字长度自然变化，顶部图片按原图比例显示，整体像小红书 / Pinterest 那样错落。
+
+加载逻辑为「永不结束」的无限流：
+
+\begin{itemize}
+  \item 首屏随机铺开 8–10 张卡片；
+  \item 滚动到接近底部时，用 \texttt{IntersectionObserver} 自动追加 6–8 张；
+  \item 通过「本轮已显示 id 集合」保证同一轮内同一张卡片不重复；
+  \item 一轮刷完后自动清空记录、重新洗牌继续，永不到底；
+  \item 页面最底部常驻一行浅灰小字「故事持续收录中…」，不打断滑动。
+\end{itemize}
+
+\subsection{内容红线}
+
+故事库顶部注释中写明了编辑红线，新增故事必须遵守：\texttt{一纸之令}只收「制度改变生活」的历史故事，
+不收现实争议时事；\texttt{硬币的两面}只收商业史与小人物与钱的故事，不收投资建议；全站不收肉食、皮草、
+动物制品消费类内容；与动物相关的故事只收录保护、共生、灭绝警示类。
+
+\section{社群（写作 → 发布 → 社群闭环）}
+
+社群页是一条帖子流，每张卡片包含：圆形首字头像、昵称、发布时间、情绪标签、正文、点赞、评论、关注按钮。
+页面预置 5 条示例帖子，覆盖不同情绪与主题。
+
+互动全部通过 localStorage 本地模拟：
+
+\begin{itemize}
+  \item 点赞可切换，数字 ±1；
+  \item 关注按钮在「+关注 ↔ 已关注」之间切换；
+  \item 评论框输入后即时显示在该帖子下方。
+\end{itemize}
+
+在首页创作流中「发布到社群」的帖子，会排在预置帖子最前面，并标注「我」，从而形成
+\textbf{写作 → 发布 → 社群}的完整本地闭环。页面底部注明：社群为原型演示数据，正式版将接入真实账号与
+社区审核机制。
+
+\section{冥想}
+
+冥想模块作为创作前的放松入口，提供三种模式：
+
+\begin{itemize}
+  \item \textbf{呼吸练习}：吸气 4s → 屏息 4s → 呼气 6s；
+  \item \textbf{4-7-8 深呼吸}：吸气 4s → 屏息 7s → 呼气 8s；
+  \item \textbf{身体扫描}：从脚趾到头部逐段放松。
+\end{itemize}
+
+支持 1 / 3 / 5 分钟时长选择，以及开始、暂停、重置。结束时可写下此刻的感受并「记录」，保存在本机浏览器
+（键名 \texttt{ve-meditation-notes}）。
+
+\section{数据存储与隐私}
+
+全站所有数据只保存在浏览器 localStorage，不上传任何服务器，见表~\ref{tab:storage}。
+清除浏览器站点数据会一并清空这些内容。
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+    键名 & 内容 \\
+    \midrule
+    \texttt{ve-draft} & 创作流保存的草稿 \\
+    \texttt{ve-posts} & 发布到社群的帖子 \\
+    \texttt{ve-community-interactions} & 帖子点赞 / 关注 / 评论状态 \\
+    \texttt{ve-meditation-notes} & 冥想结束时的感受记录 \\
+    \bottomrule
+  \end{tabular}
+  \caption{localStorage 键名与用途}
+  \label{tab:storage}
+\end{table}
+
+\section{设计系统}
+
+全站沿用一套统一的设计 token：单一强调色鼠尾草绿 \texttt{\#6f8f72}，暖白底色 \texttt{\#fafaf7}，
+搭配灰阶文字色与细边框。字体、间距、圆角、阴影通过 CSS 变量管理，四个页面共享同一份样式表，
+保证视觉一致。页面响应式适配手机：顶部导航在小屏下收紧尺寸，瀑布流降为 2 列，社群帖子流降为单列。
+
+\section{工具与工作流}
+
+本次项目使用并练习了以下工具：
+
+\begin{description}
+  \item[Markdown] 用于撰写 README 与项目文档，记录功能与内容红线；
+  \item[VS Code] 主力代码编辑器，配合 xelatex 编写本报告；
+  \item[OpenCode] AI 编码助手，用于页面结构搭建、逻辑实现与逐项调试；
+  \item[Git / GitHub] 版本管理：本地 \texttt{git} 提交 + 推送远程仓库
+    \href{https://github.com/sheaplot/ve-chuangzuo}{github.com/sheaplot/ve-chuangzuo}。
+\end{description}
+
+\section{总结}
+
+\subsection{遇到的问题与修复}
+
+\begin{itemize}
+  \item \textbf{无限滚动「卡住」}：IntersectionObserver 只在交叉状态变化时触发，加载新卡片后哨兵保持
+    「已进入视口」不再触发。修复方式是在每批加载后重新 \texttt{unobserve}/\texttt{observe} 哨兵，
+    使滚动到底部总能触发下一批；
+  \item \textbf{点赞状态不更新}：事件闭包捕获了旧值，连续点击无法正确回退。改为每次点击都从 localStorage
+    重新读取最新状态再计算；
+  \item \textbf{分类名笔误}：冰岛议会一文的分类多写了一个「不」（「没人不 知道的角落」），不在白名单内，
+    导致该分类筛选时漏掉此篇，已修正；
+  \item \textbf{顶部导航遮挡}：加入吸顶导航后，满屏的入口屏出现滚动条，通过将 \texttt{min-height} 从
+    \texttt{100vh} 调整为 \texttt{calc(100vh - 76px)} 解决。
+\end{itemize}
+
+\subsection{后续改进计划}
+
+\begin{itemize}
+  \item 接入真实账号体系与社区审核机制；
+  \item 用真实 AI 替代写作屏的引导示例；
+  \item 将占位图替换为已授权的实拍图；
+  \item 补充故事库的新故事与音视频形式的灵感素材；
+  \item 增加冥想的声音引导与更多模式。
+\end{itemize}
+
+\end{document}

@@ -255,6 +255,13 @@
       finishedAt: new Date().toISOString()
     };
 
+    // 写入个人中心（登录后自动）：冥想时长 + 此刻心情
+    if (window.veRecord) {
+      veRecord.meditation(state.duration, feeling);
+      const moodBtn = document.querySelector(".mini-mood.sel");
+      if (moodBtn) veRecord.mood(moodBtn.getAttribute("data-m"));
+    }
+
     try {
       const key = "ve-meditation-notes";
       let list = [];
@@ -268,13 +275,21 @@
 
       list.unshift(entry);
       localStorage.setItem(key, JSON.stringify(list.slice(0, 50)));
-      showToast("已记录在本机浏览器（未上传任何服务器）");
+      showToast("已记录 ✓");
     } catch (err) {
       showToast("记录失败，请检查浏览器隐私设置");
     }
   }
 
   if (recordBtn) recordBtn.addEventListener("click", recordFeeling);
+
+  // 心情选择（结束区）
+  document.querySelectorAll(".mini-mood").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      document.querySelectorAll(".mini-mood").forEach(function (b) { b.classList.remove("sel"); });
+      btn.classList.add("sel");
+    });
+  });
 
   // 时长选择：3 个胶囊单选高亮，决定总时长
   const durationOptions = Array.from(document.querySelectorAll(".duration-option"));

@@ -32,6 +32,7 @@
           <li><a href="inspiration.html">时空灵感</a></li>
           <li><a href="community.html">社群</a></li>
           <li><a href="meditation.html">冥想</a></li>
+          <li><a href="profile.html">个人中心</a></li>
         </ul>
       </nav>
     </div>
@@ -128,6 +129,60 @@
 
   </main>
 
+  <section class="visitor-map-section" aria-labelledby="visitor-map-title">
+    <h2 id="visitor-map-title">访客地图</h2>
+    <p class="visitor-map-note">来自世界各地的创作者在这里留下足迹。</p>
+
+    <div class="visitor-map-wrap" style="position:relative;width:100%;aspect-ratio:2/1;max-width:1000px;margin:0 auto;border-radius:12px;overflow:hidden;background:#f2f8f4;">
+      <svg viewBox="0 0 360 180" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;">
+        <g stroke="#d8e8de" stroke-width="0.4">
+          <path d="M60 0 V180 M120 0 V180 M180 0 V180 M240 0 V180 M300 0 V180"/>
+          <path d="M0 30 H360 M0 60 H360 M0 90 H360 M0 120 H360 M0 150 H360"/>
+        </g>
+        <g fill="#bfe0cd" stroke="#9cc7b1" stroke-width="0.5">
+          <path d="M12,22 28,19 48,16 70,15 90,17 102,22 106,30 110,40 114,42 108,46 100,44 98,52 94,58 90,64 92,68 86,72 82,80 84,84 78,83 74,76 68,70 64,64 60,58 54,50 48,44 40,34 30,26 20,24 Z"/>
+          <path d="M106,14 120,16 130,20 136,27 132,32 124,33 116,31 108,26 106,20 Z"/>
+          <path d="M84,84 98,82 110,85 124,90 132,96 142,98 146,104 138,114 130,122 124,128 118,134 114,142 112,148 116,146 118,138 114,132 110,126 106,118 102,108 100,100 96,92 90,86 Z"/>
+          <path d="M176,50 172,44 176,40 182,42 188,42 194,42 198,40 198,32 202,26 210,26 216,30 224,28 238,22 260,18 282,16 300,18 314,22 326,28 326,32 318,34 308,38 300,42 292,46 286,48 282,54 278,60 276,66 280,72 284,78 286,84 282,88 278,86 274,82 270,78 264,74 262,68 262,60 258,56 254,52 250,56 248,62 246,68 240,64 252,50 248,46 240,44 236,48 232,50 226,48 220,46 214,44 210,46 206,48 202,46 198,46 192,46 188,48 184,46 180,48 Z"/>
+          <path d="M232,62 238,60 236,66 228,70 224,66 222,60 226,56 230,58 Z"/>
+          <path d="M176,50 172,54 170,60 174,66 170,72 178,78 186,82 192,84 200,84 208,82 216,88 220,96 224,104 220,112 212,120 204,126 198,122 196,116 192,106 190,96 186,90 184,82 178,78 176,70 178,64 182,58 188,56 198,58 208,60 212,64 218,64 218,70 222,76 228,80 230,78 226,72 224,66 220,62 216,60 212,58 208,54 200,54 190,52 184,50 Z"/>
+          <path d="M226,100 232,104 232,112 226,116 222,112 222,106 224,102 Z"/>
+          <path d="M176,30 174,34 176,38 180,38 182,35 180,32 Z"/>
+          <path d="M158,26 166,26 168,30 162,32 158,30 Z"/>
+          <path d="M318,42 324,40 330,38 332,42 328,46 322,44 Z"/>
+          <path d="M276,88 274,94 280,96 282,90 Z"/>
+          <path d="M288,92 294,92 296,96 290,96 Z"/>
+          <path d="M286,84 294,84 296,88 288,90 Z"/>
+          <path d="M306,80 310,78 314,82 308,84 Z"/>
+          <path d="M292,118 286,124 288,132 296,138 308,140 320,138 330,132 336,126 338,120 336,114 330,110 324,108 318,110 312,114 306,116 300,118 296,118 Z"/>
+          <path d="M318,144 326,142 324,148 318,148 Z"/>
+          <path d="M332,132 338,128 342,132 338,136 332,134 Z"/>
+        </g>
+      </svg>
+
+      <div id="visitmap-dots" style="position:absolute;inset:0;pointer-events:none;"></div>
+    </div>
+
+    <p class="visitor-map-privacy">访客地图说明：本页仅统计访问者的大致所在地区（城市级别），用于了解内容被哪些地方的人看见。不会收集精确位置、姓名或联系方式，IP 只作匿名统计、不留存个人信息，也不用于其他用途。地图为简约示意图。</p>
+  </section>
+
+  <script>
+  fetch("/api/visitors").then(r => r.json()).then(function (data) {
+    var layer = document.getElementById("visitmap-dots");
+    Object.keys(data).forEach(function (k) {
+      var v = data[k];
+      if (isNaN(v.lat) || isNaN(v.lng)) return;
+      var x = (v.lng + 180) / 360 * 100;
+      var y = (90 - v.lat) / 180 * 100;
+      var r = 5 + Math.sqrt(v.count) * 2.5;
+      var d = document.createElement("div");
+      d.style.cssText = "position:absolute;left:" + x + "%;top:" + y + "%;width:" + (r * 2) + "px;height:" + (r * 2) + "px;margin:" + (-r) + "px 0 0 " + (-r) + "px;background:#3f8f6b;border:2px solid #fff;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.35);";
+      d.title = v.count + " 次访问 · " + v.city + ", " + v.country;
+      layer.appendChild(d);
+    });
+  });
+  </script>
+  <script src="js/record.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

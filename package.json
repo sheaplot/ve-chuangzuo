@@ -1,0 +1,24 @@
+{
+  "name": "ve-chuangzuo",
+  "version": "1.0.0",
+  "description": "> 给茻人一个讲故事的空间。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sheaplot/ve-chuangzuo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sheaplot/ve-chuangzuo/issues"
+  },
+  "homepage": "https://github.com/sheaplot/ve-chuangzuo#readme",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}

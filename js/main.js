@@ -12,6 +12,9 @@
 (function () {
   "use strict";
 
+  // 打开页面即上报一次访问（不影响前端功能，失败静默）
+  fetch("/api/visit").catch(function () {});
+
   // 步骤顺序（与 HTML 中的 section id 对应）
   const STEP_ORDER = [
     "step-0",
@@ -272,6 +275,13 @@
       } catch (err) {
         showToast("草稿保存失败，请检查浏览器隐私设置");
       }
+    }
+
+    // 记录到个人中心（登录后自动，未登录仅提示）
+    var savedStory = (state.story || "").trim();
+    if (savedStory) {
+      var firstLine = savedStory.split(/\r?\n/).map(function (s) { return s.trim(); }).filter(Boolean)[0] || "未命名创作";
+      if (window.veRecord) veRecord.writing(firstLine, savedStory.length + " 字");
     }
   }
 
