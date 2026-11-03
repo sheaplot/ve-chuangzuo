@@ -120,14 +120,18 @@
       <div class="card" style="padding-top:16px">
         <span style="font-size:13px;color:#51705f">今天心情</span>
         <div class="mood-pick" id="q-mood-picks">
-          <span class="mood" data-m="😊">😊</span>
           <span class="mood" data-m="😌">😌</span>
-          <span class="mood" data-m="🤗">🤗</span>
-          <span class="mood" data-m="😐">😐</span>
+          <span class="mood" data-m="😊">😊</span>
+          <span class="mood" data-m="🥹">🥹</span>
+          <span class="mood" data-m="🥺">🥺</span>
           <span class="mood" data-m="😔">😔</span>
+          <span class="mood" data-m="😰">😰</span>
           <span class="mood" data-m="😢">😢</span>
           <span class="mood" data-m="😤">😤</span>
-          <span class="mood" data-m="🌿">🌿</span>
+          <span class="mood" data-m="🤩">🤩</span>
+          <span class="mood" data-m="🤗">🤗</span>
+          <span class="mood" data-m="😵‍💫">😵‍💫</span>
+          <span class="mood" data-m="🥰">🥰</span>
         </div>
         <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
           <input id="q-mood-text" type="text" placeholder="想写一句就写（可选）" style="flex:1;min-width:180px">
@@ -159,14 +163,18 @@
         <div id="panel-mood" class="hidden">
           <label>今天的心情</label>
           <div class="mood-pick" id="mood-picks">
-            <span class="mood" data-m="😊">😊</span>
             <span class="mood" data-m="😌">😌</span>
-            <span class="mood" data-m="🤗">🤗</span>
-            <span class="mood" data-m="😐">😐</span>
+            <span class="mood" data-m="😊">😊</span>
+            <span class="mood" data-m="🥹">🥹</span>
+            <span class="mood" data-m="🥺">🥺</span>
             <span class="mood" data-m="😔">😔</span>
+            <span class="mood" data-m="😰">😰</span>
             <span class="mood" data-m="😢">😢</span>
             <span class="mood" data-m="😤">😤</span>
-            <span class="mood" data-m="🌿">🌿</span>
+            <span class="mood" data-m="🤩">🤩</span>
+            <span class="mood" data-m="🤗">🤗</span>
+            <span class="mood" data-m="😵‍💫">😵‍💫</span>
+            <span class="mood" data-m="🥰">🥰</span>
           </div>
           <textarea id="mood-text" placeholder="想写几句就写几句（可选）" style="min-height:48px"></textarea>
           <button class="btn" onclick="addRec('mood')">保存心情记录</button>
@@ -290,9 +298,9 @@
     }
 
     function moodEmoji(text){
-      var moods=["😊","😌","🤗","😐","😔","😢","😤","🌿"];
+      var moods=["😌","😊","🥹","🥺","😔","😰","😢","😤","🤩","🤗","😵‍💫","🥰"];
       for(var i=0;i<moods.length;i++){ if(String(text).indexOf(moods[i])===0) return moods[i]; }
-      return "🌿";
+      return "😌";
     }
     function monthAbbr(m){
       var a=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]; return a[m];

@@ -35,34 +35,30 @@
     story: ""
   };
 
-  // 四个选项屏的配置：按钮组 / 自定义按钮 / 自定义输入框
+  // 四个选项屏的配置：按钮组 / 自定义胶囊输入框
   const screens = [
     {
       key: "mood",
       stepId: "step-mood",
       buttons: Array.from(document.querySelectorAll(".mood-btn")),
-      customBtn: document.getElementById("mood-custom-btn"),
       customInput: document.getElementById("mood-custom-input")
     },
     {
       key: "place",
       stepId: "step-place",
       buttons: Array.from(document.querySelectorAll(".place-btn")),
-      customBtn: document.querySelector("#step-place .custom-option"),
       customInput: document.getElementById("place-custom-input")
     },
     {
       key: "time",
       stepId: "step-time",
       buttons: Array.from(document.querySelectorAll(".time-btn")),
-      customBtn: document.querySelector("#step-time .custom-option"),
       customInput: document.getElementById("time-custom-input")
     },
     {
       key: "angle",
       stepId: "step-angle",
       buttons: Array.from(document.querySelectorAll(".angle-btn")),
-      customBtn: document.querySelector("#step-angle .custom-option"),
       customInput: document.getElementById("angle-custom-input")
     }
   ];
