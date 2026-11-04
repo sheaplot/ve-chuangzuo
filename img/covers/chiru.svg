@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img">
+  <rect width="800" height="500" fill="#e9f1e8"/>
+  <circle cx="690" cy="60" r="190" fill="#cfe0cd" opacity="0.55"/>
+  <g fill="none" stroke="#5f8a63" stroke-width="2" opacity="0.35"><path d="M120 350 Q 320 240 560 330" /><path d="M180 385 Q 340 300 560 370" /></g>
+  
+  <text x="64" y="92" font-family="Helvetica,Arial,sans-serif" font-size="20" letter-spacing="8" fill="#5f8a63">回家</text>
+  <text x="64" y="250" font-family="Georgia,'Times New Roman',serif" font-size="104" fill="#2b2b2b" opacity="0.88">1990s</text>
+  <text x="66" y="312" font-family="Helvetica,Arial,sans-serif" font-size="24" fill="#5f8a63">中国 · 可可西里</text>
+  <text x="64" y="440" font-family="Helvetica,Arial,sans-serif" font-size="16" letter-spacing="6" fill="#5f8a63" opacity="0.7">VE创作 · 故事题图</text>
+</svg>

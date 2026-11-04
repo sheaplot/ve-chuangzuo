@@ -4,165 +4,90 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>个人中心 — ve创作</title>
-  <meta name="description" content="ve创作个人中心：记录你的冥想、写作与心情。">
+  <meta name="description" content="ve创作个人中心：记录你的写作、冥想与心情。">
   <meta name="theme-color" content="#6f8f72">
   <link rel="canonical" href="https://ve-chuangzuo.onrender.com/profile.html">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="个人中心 — ve创作">
-  <meta property="og:description" content="记录你的冥想、写作与心情。">
+  <meta property="og:description" content="记录你的写作、冥想与心情。">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ve创作">
   <meta property="og:url" content="https://ve-chuangzuo.onrender.com/profile.html">
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5faf6;color:#24382c;line-height:1.6}
-    .site-header{background:#fff;border-bottom:1px solid #e3efe6;padding:14px 24px}
-    .header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-    .brand{font-weight:700;font-size:18px;color:#2f6b4f;text-decoration:none}
-    nav ul{display:flex;gap:18px;list-style:none;flex-wrap:wrap}
-    nav a{color:#2f6b4f;text-decoration:none;font-size:14px}
-    nav a:hover{text-decoration:underline}
-    main{max-width:700px;margin:40px auto;padding:0 20px}
-    h1{font-size:26px;margin-bottom:8px;color:#1f5c40}
-    .card{background:#fff;border:1px solid #e3efe6;border-radius:14px;padding:22px;margin-bottom:18px}
-    label{display:block;font-size:13px;color:#51705f;margin:12px 0 6px}
-    input[type=text],input[type=password],textarea{width:100%;padding:10px 12px;border:1px solid #cfdfd3;border-radius:8px;font-size:14px;background:#fff;font-family:inherit}
-    textarea{min-height:72px;resize:vertical}
-    .btn{background:#2f6b4f;color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;cursor:pointer}
-    .btn:hover{background:#265840}
-    .btn-ghost{background:#eef6f1;color:#2f6b4f}
-    .hidden{display:none}
-    .tabbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-    .tab{padding:8px 14px;border:1px solid #cfdfd3;border-radius:8px;cursor:pointer;font-size:14px;color:#51705f;background:#fff}
-    .tab.active{background:#2f6b4f;color:#fff;border-color:#2f6b4f}
-    .rec{background:#f2f8f4;border-radius:10px;padding:12px;margin-bottom:10px;font-size:14px}
-    .rec .date{font-size:12px;color:#7a9a88;margin-top:4px}
-    .rec .del{float:right;color:#c05555;cursor:pointer;font-size:12px}
-    .mood-pick{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
-    .mood{font-size:20px;padding:6px 10px;border:1px solid #cfdfd3;border-radius:10px;cursor:pointer;background:#fff}
-    .mood.sel{background:#dff0e5;border-color:#2f6b4f}
-    .msg{font-size:13px;color:#c05555;margin-top:8px}
-    .userinfo{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-
-    .mood-scroll{overflow-x:auto;margin-top:16px;padding-bottom:4px}
-    .mood-table{border-collapse:separate;border-spacing:3px}
-    .mood-table th{font-size:11px;color:#7a9a88;font-weight:400;text-align:center;min-width:28px;vertical-align:bottom;height:18px}
-    .mood-table .wd{font-size:11px;color:#7a9a88;text-align:right;padding-right:4px}
-    .mood-table .cell{width:26px;height:26px;border-radius:6px;background:#edf4ef;text-align:center;line-height:26px;font-size:15px}
-    .mood-table .cell.mood{background:#dff0e5;border:1px solid #bcdcc9}
-    .mood-head{display:flex;justify-content:space-between;align-items:baseline;margin-top:20px;flex-wrap:wrap;gap:6px}
-    .mood-count{font-size:13px;color:#51705f}
-
-    /* 无障碍 / 触控 / 移动端导航 */
-    .skip-link{position:absolute;top:-80px;left:8px;z-index:200;padding:10px 16px;border-radius:8px;background:#2f6b4f;color:#fff;font-size:13px;text-decoration:none}
-    .skip-link:focus{top:12px}
-    :focus-visible{outline:2px solid #2f6b4f;outline-offset:3px}
-    #main:focus{outline:none}
-    .brand,nav a,.btn,.tab,.mood{display:inline-flex;align-items:center;min-height:44px;min-width:44px}
-    .mood{justify-content:center}
-    .nav-toggle{display:none;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid #cfdfd3;border-radius:10px;background:#fff;color:#2f6b4f;cursor:pointer;flex-direction:column;gap:5px}
-    .nav-toggle span{display:block;width:20px;height:2px;background:currentColor;border-radius:1px;transition:transform .2s ease,opacity .2s ease}
-    .site-header.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-    .site-header.nav-open .nav-toggle span:nth-child(2){opacity:0}
-    .site-header.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-    @media (max-width:639px){
-      .header-inner{align-items:center;min-height:56px;padding:8px 14px;flex-wrap:wrap}
-      .nav-toggle{display:inline-flex;order:2}
-      nav{display:none;width:100%;order:3;padding:10px 0 12px;border-top:1px solid #e3efe6}
-      .site-header.nav-open nav{display:block}
-      nav ul{flex-direction:column;gap:2px;align-items:flex-start}
-      nav a{padding:10px 6px;font-size:15px;width:100%}
-    }
-    @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <div class="demo-banner" role="note">
+    <strong>茻新计划 · 在线原型 Demo</strong>
+    <a href="about.html">项目说明 →</a>
+  </div>
+
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="index.html">ve创作</a>
+      <a class="brand" href="index.html" aria-label="ve创作 首页">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
+          <path d="M38 10C27 9 14 13 10 24c-3 8 1 13 7 15 12 4 21-9 21-29Z"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linejoin="round"></path>
+          <path d="M12 36 33 15"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"></path>
+          <path d="m33 15 4-5 1 7-5-2Z" fill="currentColor"></path>
+        </svg>
+        <span class="brand-name">ve创作</span>
+      </a>
       <button class="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
-      <nav id="site-nav">
+
+      <nav id="site-nav" class="site-nav" aria-label="主导航">
         <ul>
           <li><a href="index.html">首页</a></li>
           <li><a href="inspiration.html">时空灵感</a></li>
           <li><a href="community.html">社群</a></li>
           <li><a href="meditation.html">冥想</a></li>
-          <li><a href="profile.html" aria-current="page" style="font-weight:700">个人中心</a></li>
+          <li><a href="profile.html" aria-current="page">个人中心</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main id="main" tabindex="-1">
-    <!-- 未登录 -->
-    <section id="view-login" class="card">
-      <h1>欢迎回来</h1>
-      <p style="color:#51705f;font-size:14px">登录后记录你的冥想、写作与心情。</p>
-      <label>用户名</label>
-      <input id="login-user" type="text" placeholder="给自己起个名字">
-      <label>密码</label>
-      <input id="login-pass" type="password" placeholder="至少 4 位">
-      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-        <button class="btn" id="btn-login">登录</button>
-        <button class="btn btn-ghost" id="btn-register">注册新账号</button>
-      </div>
-      <p class="msg" id="login-msg"></p>
-    </section>
+    <div class="profile-wrap">
 
-    <!-- 已登录 -->
-    <section id="view-profile" class="hidden">
-      <div class="card userinfo">
-        <h1>你好，<span id="who"></span></h1>
-        <button class="btn btn-ghost" id="btn-logout">退出登录</button>
-      </div>
+      <!-- 未登录 -->
+      <section id="view-login" class="card-panel">
+        <h1>欢迎回来</h1>
+        <p class="profile-sub">登录后，写作、冥想与心情记录会保存到你的账号；不登录也可以直接创作。</p>
 
-      <div class="card" style="padding-top:16px">
-        <span style="font-size:13px;color:#51705f">今天心情</span>
-        <div class="mood-pick" id="q-mood-picks">
-          <span class="mood" data-m="😌">😌</span>
-          <span class="mood" data-m="😊">😊</span>
-          <span class="mood" data-m="🥹">🥹</span>
-          <span class="mood" data-m="🥺">🥺</span>
-          <span class="mood" data-m="😔">😔</span>
-          <span class="mood" data-m="😰">😰</span>
-          <span class="mood" data-m="😢">😢</span>
-          <span class="mood" data-m="😤">😤</span>
-          <span class="mood" data-m="🤩">🤩</span>
-          <span class="mood" data-m="🤗">🤗</span>
-          <span class="mood" data-m="😵‍💫">😵‍💫</span>
-          <span class="mood" data-m="🥰">🥰</span>
-        </div>
-        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
-          <input id="q-mood-text" type="text" placeholder="想写一句就写（可选）" style="flex:1;min-width:180px">
-          <button class="btn" id="btn-q-mood">记一笔</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="tabbar">
-          <div class="tab active" data-t="meditation">🧘 冥想</div>
-          <div class="tab" data-t="writing">✍️ 写作</div>
-          <div class="tab" data-t="mood">💚 心情</div>
+        <div style="margin-top:20px">
+          <label for="login-user">用户名</label>
+          <input id="login-user" type="text" placeholder="给自己起个名字" autocomplete="username">
+          <label for="login-pass">密码</label>
+          <input id="login-pass" type="password" placeholder="至少 4 位" autocomplete="current-password">
         </div>
 
-        <div id="panel-meditation">
-          <label>这次的冥想感受</label>
-          <textarea id="med-text" placeholder="例如：跟着引导放松了 10 分钟，心跳慢下来了…"></textarea>
-          <button class="btn" onclick="addRec('meditation')">保存冥想记录</button>
-          <div id="list-meditation" style="margin-top:14px"></div>
+        <div class="form-row" style="margin-top:6px">
+          <button class="btn btn-primary" id="btn-login">登录</button>
+          <button class="btn btn-ghost" id="btn-register">注册新账号</button>
+        </div>
+        <p class="form-msg" id="login-msg"></p>
+      </section>
+
+      <!-- 已登录 -->
+      <section id="view-profile" class="hidden">
+        <div class="profile-head">
+          <div>
+            <h1>你好，<span id="who"></span></h1>
+            <p class="profile-sub">这些记录只属于你。它们不会被公开，也不会出现在社群里。</p>
+          </div>
+          <button class="btn btn-ghost" id="btn-logout">退出登录</button>
         </div>
 
-        <div id="panel-writing" class="hidden">
-          <label>这次的写作记录</label>
-          <textarea id="write-text" placeholder="例如：写完了《旅鸽玛莎》的灵感小故事…"></textarea>
-          <button class="btn" onclick="addRec('writing')">保存写作记录</button>
-          <div id="list-writing" style="margin-top:14px"></div>
-        </div>
-
-        <div id="panel-mood" class="hidden">
-          <label>今天的心情</label>
-          <div class="mood-pick" id="mood-picks">
+        <div class="card-panel">
+          <span class="field-label">今天心情</span>
+          <div class="mood-pick" id="q-mood-picks">
             <span class="mood" data-m="😌">😌</span>
             <span class="mood" data-m="😊">😊</span>
             <span class="mood" data-m="🥹">🥹</span>
@@ -176,20 +101,76 @@
             <span class="mood" data-m="😵‍💫">😵‍💫</span>
             <span class="mood" data-m="🥰">🥰</span>
           </div>
-          <textarea id="mood-text" placeholder="想写几句就写几句（可选）" style="min-height:48px"></textarea>
-          <button class="btn" onclick="addRec('mood')">保存心情记录</button>
-
-          <div class="mood-head">
-            <span class="mood-count" id="mood-count"></span>
-            <span class="mood-count" style="font-size:12px;color:#8aa79a">心情足迹 · 一格 = 一天</span>
-          </div>
-          <div class="mood-scroll">
-            <div id="mood-grid"></div>
+          <div class="form-row">
+            <input id="q-mood-text" type="text" placeholder="想写一句就写（可选）">
+            <button class="btn btn-primary" id="btn-q-mood" style="min-height:44px;padding:9px 22px;font-size:0.88rem">记一笔</button>
           </div>
         </div>
-      </div>
-    </section>
+
+        <div class="card-panel">
+          <div class="tabbar">
+            <div class="tab active" data-t="meditation">🧘 冥想</div>
+            <div class="tab" data-t="writing">✍️ 写作</div>
+            <div class="tab" data-t="mood">💚 心情</div>
+          </div>
+
+          <div id="panel-meditation">
+            <label for="med-text">这次的冥想感受</label>
+            <textarea id="med-text" placeholder="例如：跟着引导放松了 10 分钟，心跳慢下来了…"></textarea>
+            <button class="btn btn-primary" onclick="addRec('meditation')" style="min-height:44px;padding:9px 22px;font-size:0.88rem">保存冥想记录</button>
+            <div id="list-meditation" style="margin-top:16px"></div>
+          </div>
+
+          <div id="panel-writing" class="hidden">
+            <label for="write-text">这次的写作记录</label>
+            <textarea id="write-text" placeholder="例如：写完了《旅鸽玛莎》的灵感小故事…"></textarea>
+            <button class="btn btn-primary" onclick="addRec('writing')" style="min-height:44px;padding:9px 22px;font-size:0.88rem">保存写作记录</button>
+            <div id="list-writing" style="margin-top:16px"></div>
+          </div>
+
+          <div id="panel-mood" class="hidden">
+            <label>今天的心情</label>
+            <div class="mood-pick" id="mood-picks">
+              <span class="mood" data-m="😌">😌</span>
+              <span class="mood" data-m="😊">😊</span>
+              <span class="mood" data-m="🥹">🥹</span>
+              <span class="mood" data-m="🥺">🥺</span>
+              <span class="mood" data-m="😔">😔</span>
+              <span class="mood" data-m="😰">😰</span>
+              <span class="mood" data-m="😢">😢</span>
+              <span class="mood" data-m="😤">😤</span>
+              <span class="mood" data-m="🤩">🤩</span>
+              <span class="mood" data-m="🤗">🤗</span>
+              <span class="mood" data-m="😵‍💫">😵‍💫</span>
+              <span class="mood" data-m="🥰">🥰</span>
+            </div>
+            <textarea id="mood-text" placeholder="想写几句就写几句（可选）" style="min-height:52px"></textarea>
+            <button class="btn btn-primary" onclick="addRec('mood')" style="min-height:44px;padding:9px 22px;font-size:0.88rem">保存心情记录</button>
+
+            <div class="mood-head">
+              <span class="mood-count" id="mood-count"></span>
+              <span class="mood-count">心情足迹 · 一格 = 一天</span>
+            </div>
+            <div class="mood-scroll">
+              <div id="mood-grid"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
   </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner footer-wide">
+      <p>© 2026 ve创作 · 一个面向茻人的故事采集与传播原型</p>
+      <p class="footer-links">
+        <a href="about.html">项目说明</a>
+        <a href="about.html#principles">内容原则</a>
+        <a href="about.html#privacy">隐私与数据</a>
+      </p>
+    </div>
+  </footer>
 
   <script src="js/nav.js"></script>
   <script src="js/record.js"></script>
@@ -289,7 +270,7 @@
     function render(type, arr){
       if(type==="mood"){ renderMoodGrid(arr); return; }
       var box = $("list-"+type);
-      if(!arr.length){ box.innerHTML = '<p style="color:#8aa79a;font-size:13px">还没有记录。</p>'; return; }
+      if(!arr.length){ box.innerHTML = '<p class="empty-note">还没有记录。</p>'; return; }
       box.innerHTML = arr.slice().reverse().map(function(r){
         return '<div class="rec"><span class="del" onclick="delRec(\''+r.id+'\')">删除</span>'+
           '<div>' + r.text.replace(/</g,"&lt;") + '</div>'+

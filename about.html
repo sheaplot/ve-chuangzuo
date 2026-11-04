@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>项目说明 — ve创作</title>
+  <meta name="description" content="ve创作是什么、为什么做、怎么做、现在到哪一步：一个面向茻人的故事采集与传播原型。">
+  <meta name="theme-color" content="#6f8f72">
+  <link rel="canonical" href="https://ve-chuangzuo.onrender.com/about.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="项目说明 — ve创作">
+  <meta property="og:description" content="一个面向茻人的故事采集与传播原型：为什么做、怎么做、现在到哪一步。">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ve创作">
+  <meta property="og:url" content="https://ve-chuangzuo.onrender.com/about.html">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <div class="demo-banner" role="note">
+    <strong>茻新计划 · 在线原型 Demo</strong>
+    <a href="index.html">回到首页 →</a>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="ve创作 首页">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
+          <path d="M38 10C27 9 14 13 10 24c-3 8 1 13 7 15 12 4 21-9 21-29Z"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linejoin="round"></path>
+          <path d="M12 36 33 15"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"></path>
+          <path d="m33 15 4-5 1 7-5-2Z" fill="currentColor"></path>
+        </svg>
+        <span class="brand-name">ve创作</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+
+      <nav id="site-nav" class="site-nav" aria-label="主导航">
+        <ul>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="inspiration.html">时空灵感</a></li>
+          <li><a href="community.html">社群</a></li>
+          <li><a href="meditation.html">冥想</a></li>
+          <li><a href="profile.html">个人中心</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <section class="about-hero" aria-labelledby="about-title">
+      <p class="landing-kicker">项目说明</p>
+      <h1 id="about-title">让一个人的转变，<br>被另一个人读到。</h1>
+      <p>
+        ve创作不是一个「素食社区」，也不是一个写作工具。它是一件更小、也更具体的事：
+        持续采集茻人的真实故事，把它们编辑好、放在能被读到的地方，再让读者有机会写下自己的。
+      </p>
+    </section>
+
+    <div class="about-body">
+
+      <h2>为什么要做这件事</h2>
+      <p>
+        中文互联网上关于素食的内容，大多落在两端：一端是营养知识与环保数据，正确，但很难让人产生「这和我有关」的感觉；
+        另一端是生活方式展示，好看，但离普通人的日常很远。真正让人改变的，往往是第三样东西——一个具体的人，
+        在具体的处境里，做了一个具体的决定。
+      </p>
+      <p>
+        Statista 在 2023–24 年对 18–64 岁中国受访者的调查里，约 <strong>9%</strong> 的人自报为蛋奶素或纯素
+        （自报口径，含蛋奶素，不能等同于严格素食人口）。这个数字说明「潜在的人」并不少；
+        真正稀缺的，是让这些人被彼此看见的媒介。
+      </p>
+      <p>
+        2026 年 10 月，第五届茻大会在深圳办到第三天的时候，我意识到：现场有那么多正在做事的人，
+        但这些经验散落在朋友圈、微信群和一次性的分享里，会结束、会沉底、会消失。
+        ve创作想做的，是给它们一个不会沉底的地方。
+      </p>
+
+      <h2>它怎么运转</h2>
+      <ul>
+        <li><strong>采集</strong>：线上投稿 + 线下小规模故事工作坊（一次 6–10 人，两小时，一个人讲，一个人记）。</li>
+        <li><strong>编辑</strong>：所有投稿先审后发，由编辑校对事实、隐去可识别的个人信息、补上来源。不追求「爆款」，追求可读与可信。</li>
+        <li><strong>传播</strong>：每篇故事都能生成一张竖版故事卡，读者可以带走、发给一个还在犹豫的人——这是它走出同温层的方式。</li>
+      </ul>
+      <p>
+        技术在这里是手段，不是目的。原型用纯原生 HTML / CSS / JavaScript 写成，没有框架、没有构建步骤，
+        一个人就能维护；正式版会把「投稿—编辑—发布」这条流水线做扎实，而不是先做社区功能。
+      </p>
+
+      <h2>现在已经有的</h2>
+      <ul>
+        <li>一个可以完整走一遍的在线原型：六步创作流 → AI 提示 → 故事卡 → 本机发布。</li>
+        <li>24 篇已整理的真实故事，分 6 类，每篇都附原始来源链接。</li>
+        <li>一套明确的编辑红线与分类白名单（见下方「内容原则」）。</li>
+        <li>「故事发生的地方」地图：24 个故事分布在 9 个国家与地区，时间跨度 366–2022 年。</li>
+      </ul>
+
+      <h2>接下来六个月</h2>
+      <ul class="timeline">
+        <li>
+          <span class="t-when">第 1–2 个月</span>
+          <span class="t-what">把采集流程跑通</span>
+          <span class="t-desc">定稿投稿表单与授权书；在 1 个城市做 2 场小型故事工作坊，采集首批 15–20 个故事。</span>
+        </li>
+        <li>
+          <span class="t-when">第 3–4 个月</span>
+          <span class="t-what">上线「投稿 → 编辑 → 发布」</span>
+          <span class="t-desc">投稿先审后发；每篇配一张故事卡；建立来源与授权记录，可回溯。</span>
+        </li>
+        <li>
+          <span class="t-when">第 5–6 个月</span>
+          <span class="t-what">扩到 3 个城市，公开第一份合集</span>
+          <span class="t-desc">累计 60 个故事；做一次线上合集与一次线下共读；用读者反馈评估「读完是否更愿意了解茻生活」。</span>
+        </li>
+      </ul>
+
+      <h2 id="principles">内容原则</h2>
+      <ul>
+        <li>故事库采用固定分类白名单：说再见 / 回家 / 群星闪耀 / 没人知道的角落 / 硬币的两面 / 一纸之令，不设其他分类。</li>
+        <li>与动物相关的故事，只收保护、共生、灭绝警示类；不收肉食、皮草、动物制品消费类内容。</li>
+        <li>「一纸之令」只收制度改变生活的历史故事与社会进步成果，不收现实争议时事；罪案只收已结案、有权威来源的历史名案。</li>
+        <li>「硬币的两面」收商业史与普通人与钱的故事，不收投资建议。</li>
+        <li>所有故事标注来源；没有可靠来源的故事，不进故事库。转载与引用以链接回原文为主。</li>
+        <li>涉及真实人物的投稿，发布前取得本人同意；可随时要求下架。</li>
+      </ul>
+
+      <h2>AI 用在哪里，不用在哪里</h2>
+      <p>
+        写作页里的 AI 只做一件事：在你卡住的时候递一句提示（「加一个具体的细节」「换一个视角」），
+        不生成正文、不替你决定怎么写。正式版会把提示做得更贴合中文写作习惯，但这条边界不变：
+        <strong>故事必须是本人写的</strong>。
+      </p>
+
+      <h2 id="privacy">隐私与数据</h2>
+      <ul>
+        <li>草稿、发布的帖子、点赞与评论状态，全部只保存在你自己的浏览器（localStorage），不上传服务器。</li>
+        <li>原型不接入第三方统计，不做访客画像，不记录 IP。</li>
+        <li>注册账号仅用于「个人中心」保存写作 / 冥想 / 心情记录；密码以 scrypt 加盐哈希存储。</li>
+        <li>清除浏览器站点数据，会一并清空本机保存的内容。</li>
+      </ul>
+
+      <h2>这个原型的状态</h2>
+      <div class="about-meta">
+        <div>
+          <dt>阶段</dt>
+          <dd>早期验证：在线原型已可体验，尚未开放真实投稿</dd>
+        </div>
+        <div>
+          <dt>技术</dt>
+          <dd>原生 HTML / CSS / JavaScript，Node.js + Express 提供登录与记录接口</dd>
+        </div>
+        <div>
+          <dt>演示数据</dt>
+          <dd>社群帖子为示例；故事卡与发布仅在本机生效</dd>
+        </div>
+        <div>
+          <dt>起始</dt>
+          <dd>2026 年 10 月，第五届茻大会（深圳）之后</dd>
+        </div>
+      </div>
+
+      <h2>想找什么</h2>
+      <p>
+        如果你手上有还没被写下来的茻故事，或者你所在的城市有可以做工作坊的空间（咖啡馆、书店、社区空间都行），
+        欢迎联系我。也欢迎做内容编辑、事实核查、声音录制、插画的朋友一起，把这件事做得更耐读一点。
+      </p>
+
+      <p class="about-footer-note">
+        这个页面是「茻新计划」申请材料的一部分。原型中的社群内容、故事卡生成与账号体系均为演示实现；
+        正式版会接入真实投稿流程、内容审核与授权记录。故事内容整理自公开权威资料，原文表达与观点归原作者所有，
+        ve创作只是信息集合地，不代表官方立场。
+      </p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner footer-wide">
+      <p>© 2026 ve创作 · 一个面向茻人的故事采集与传播原型</p>
+      <p class="footer-links">
+        <a href="index.html">首页</a>
+        <a href="inspiration.html">时空灵感</a>
+        <a href="about.html#principles">内容原则</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+</body>
+</html>

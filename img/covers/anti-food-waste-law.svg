@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img">
+  <rect width="800" height="500" fill="#eaedf3"/>
+  <circle cx="690" cy="60" r="190" fill="#d2d9e6" opacity="0.55"/>
+  <g fill="none" stroke="#5b6f8a" stroke-width="2" opacity="0.35"><path d="M470 250 H640" /><path d="M470 300 H640" /><path d="M470 350 H600" /></g>
+  
+  <text x="64" y="92" font-family="Helvetica,Arial,sans-serif" font-size="20" letter-spacing="8" fill="#5b6f8a">一纸之令</text>
+  <text x="64" y="250" font-family="Georgia,'Times New Roman',serif" font-size="104" fill="#2b2b2b" opacity="0.88">2021</text>
+  <text x="66" y="312" font-family="Helvetica,Arial,sans-serif" font-size="24" fill="#5b6f8a">中国 · 北京</text>
+  <text x="64" y="440" font-family="Helvetica,Arial,sans-serif" font-size="16" letter-spacing="6" fill="#5b6f8a" opacity="0.7">VE创作 · 故事题图</text>
+</svg>

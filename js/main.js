@@ -97,6 +97,13 @@
 
     state.stepIndex = clamped;
 
+    // 进入创作流后隐藏首页落地区，保持沉浸；回到入口屏再显示
+    document.body.classList.toggle("flow-active", clamped !== 0);
+
+    if (clamped === 0) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+
     // 进入写作屏时，生成示例 AI 引导语与写作提示
     if (clamped === STEP_ORDER.length - 1) {
       renderAiHint();
@@ -110,14 +117,27 @@
     if (state.stepIndex > 0) goStep(state.stepIndex - 1);
   }
 
-  // 选择一项：清除同组（含自定义按钮）的 selected，再高亮当前项
+  // 选择一项：清除同组（含自定义输入框）的 selected，再高亮当前项
   function selectOption(screen, btn, value) {
     screen.buttons.forEach(function (b) {
       b.classList.remove("selected");
     });
-    if (screen.customBtn) screen.customBtn.classList.remove("selected");
+    if (screen.customInput) screen.customInput.classList.remove("selected");
 
-    btn.classList.add("selected");
+    if (btn) {
+      if (btn.classList) btn.classList.add("selected");
+      if (btn.setAttribute) btn.setAttribute("aria-pressed", "true");
+    }
+    state[screen.key] = value;
+  }
+
+  // 自定义输入生效：清空固定选项的高亮，把输入框本身标为已选
+  function selectCustom(screen, value) {
+    screen.buttons.forEach(function (b) {
+      b.classList.remove("selected");
+      if (b.setAttribute) b.setAttribute("aria-pressed", "false");
+    });
+    if (screen.customInput) screen.customInput.classList.add("selected");
     state[screen.key] = value;
   }
 
@@ -162,14 +182,6 @@
         });
       });
 
-      // 自定义按钮：显示并聚焦输入框
-      if (screen.customBtn && screen.customInput) {
-        screen.customBtn.addEventListener("click", function () {
-          screen.customInput.hidden = false;
-          screen.customInput.focus();
-        });
-      }
-
       // 自定义输入：回车确认，记录后进入下一屏
       if (screen.customInput) {
         screen.customInput.addEventListener("keydown", function (e) {
@@ -178,11 +190,7 @@
           const value = screen.customInput.value.trim();
           if (!value) return;
 
-          if (screen.customBtn) {
-            selectOption(screen, screen.customBtn, value);
-          } else {
-            state[screen.key] = value;
-          }
+          selectCustom(screen, value);
           goStep(fromIndex + 1);
         });
       }
@@ -343,7 +351,7 @@
     return Promise.resolve();
   }
 
-  // 去保存：写入个人中心记录，然后去个人主页查看
+  // 去保存：写入本地草稿；已登录时同时记到个人中心
   function saveStory() {
     const story = storyText ? storyText.value.trim() : "";
     if (!story) {
@@ -354,8 +362,7 @@
     persistLocalDraft(story);
 
     if (!localStorage.getItem("ve_token")) {
-      alert("保存到个人中心需要先登录或注册，正在前往个人中心");
-      window.location.href = "profile.html";
+      showToast("已保存为草稿（只在这台设备上）");
       return;
     }
 
@@ -364,7 +371,7 @@
     });
   }
 
-  // 去发布：确认后发布到社群；未登录先去个人中心登录/注册
+  // 去发布：游客也能发布（只写本机，用于完整演示流程）；已登录会额外记录到个人中心
   function publishStory() {
     const story = storyText ? storyText.value.trim() : "";
     if (!story) {
@@ -372,14 +379,7 @@
       return;
     }
 
-    if (!localStorage.getItem("ve_token")) {
-      persistLocalDraft(story);
-      alert("发布到社群需要先注册或登录，正在前往个人中心");
-      window.location.href = "profile.html";
-      return;
-    }
-
-    if (!window.confirm("发布后会出现在社群中，是否确认发布？")) return;
+    persistLocalDraft(story);
 
     const moodBtn = document.querySelector(".mood-btn.selected");
     const mood = moodBtn ? moodBtn.textContent.trim() : "😌平静";
@@ -402,10 +402,20 @@
       localStorage.setItem("ve-posts", JSON.stringify(posts));
     } catch (err) {}
 
-    recordWriting(story).then(function () {
-      alert("已发布到社群 🎉");
+    if (localStorage.getItem("ve_token")) {
+      recordWriting(story).then(function () {
+        showToast("已发布到社群（本机演示）");
+        setTimeout(function () {
+          window.location.href = "community.html";
+        }, 700);
+      });
+      return;
+    }
+
+    showToast("已发布到社群（本机演示）");
+    setTimeout(function () {
       window.location.href = "community.html";
-    });
+    }, 700);
   }
 
   // 轻提示（toast）
@@ -487,6 +497,186 @@
     storyText.addEventListener("input", function () {
       state.story = storyText.value;
       scheduleSuggestions();
+    });
+  }
+
+  // ---------- 故事卡：把正文画成一张竖版图，可保存带走 ----------
+  const cardBtn = document.getElementById("story-card-btn");
+  const cardModal = document.getElementById("story-card-modal");
+  const cardCanvas = document.getElementById("story-card-canvas");
+  const cardClose = document.getElementById("story-card-close");
+  const cardDownload = document.getElementById("story-card-download");
+
+  function wrapCjk(ctx, text, maxWidth) {
+    const out = [];
+    String(text).split(/\r?\n/).forEach(function (para) {
+      if (!para) {
+        out.push("");
+        return;
+      }
+      let line = "";
+      for (let i = 0; i < para.length; i++) {
+        const ch = para[i];
+        const test = line + ch;
+        if (line && ctx.measureText(test).width > maxWidth) {
+          out.push(line);
+          line = ch;
+        } else {
+          line = test;
+        }
+      }
+      if (line) out.push(line);
+    });
+    return out;
+  }
+
+  function drawStoryCard() {
+    if (!cardCanvas) return;
+    const ctx = cardCanvas.getContext("2d");
+    if (!ctx) return;
+
+    const W = cardCanvas.width;
+    const H = cardCanvas.height;
+    const SANS = '"Inter","PingFang SC","Microsoft YaHei",sans-serif';
+    const SERIF = '"Noto Serif SC","Songti SC","STSong","SimSun",Georgia,serif';
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "#fafaf7";
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.strokeStyle = "#e4e2d9";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(54, 54, W - 108, H - 108);
+
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
+
+    ctx.fillStyle = "#547356";
+    ctx.font = "600 28px " + SANS;
+    if ("letterSpacing" in ctx) ctx.letterSpacing = "6px";
+    ctx.fillText("ve创作 · 茻人故事", 108, 172);
+    if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+
+    const meta = [state.mood, state.place].filter(Boolean).join(" · ");
+    if (meta) {
+      ctx.fillStyle = "#6f6e65";
+      ctx.font = "400 26px " + SANS;
+      ctx.fillText(meta, 108, 218);
+    }
+
+    const story = (storyText ? storyText.value : "").trim();
+    ctx.font = '400 44px ' + SERIF;
+    let lines = wrapCjk(ctx, story, W - 216);
+    const maxLines = 9;
+    if (lines.length > maxLines) {
+      lines = lines.slice(0, maxLines);
+      lines[maxLines - 1] = lines[maxLines - 1].replace(/[，。、；：,.]$/, "") + "……";
+    }
+
+    // 文字块在正文区域里垂直居中，短故事不显得空
+    const areaTop = 420;
+    const areaBottom = 1150;
+    const blockH = lines.length * 76;
+    let y = areaTop + Math.max(0, (areaBottom - areaTop - blockH) / 2) + 54;
+
+    // 引号贴着正文上方，避免短文本时悬在半空
+    ctx.fillStyle = "#edf3ed";
+    ctx.font = '600 120px Georgia, "Songti SC", serif';
+    ctx.fillText("\u201C", 96, y - 64);
+
+    ctx.font = '400 44px ' + SERIF;
+    ctx.fillStyle = "#2b2b2b";
+    lines.forEach(function (line) {
+      ctx.fillText(line, 108, y);
+      y += 76;
+    });
+
+    ctx.strokeStyle = "#e4e2d9";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(108, H - 210);
+    ctx.lineTo(W - 108, H - 210);
+    ctx.stroke();
+
+    ctx.fillStyle = "#6f6e65";
+    ctx.font = "400 24px " + SANS;
+    ctx.fillText("茻新计划 · 在线原型", 108, H - 150);
+
+    const now = new Date();
+    const dateStr = now.getFullYear() + "." + String(now.getMonth() + 1).padStart(2, "0");
+    ctx.textAlign = "right";
+    ctx.fillText(dateStr, W - 108, H - 150);
+
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#547356";
+    ctx.font = "600 24px " + SANS;
+    ctx.fillText("一个讲故事的空间", 108, H - 106);
+  }
+
+  function openCard() {
+    if (!cardModal) return;
+    const story = storyText ? storyText.value.trim() : "";
+    if (!story) {
+      alert("先写几句，再做故事卡");
+      if (storyText) storyText.focus();
+      return;
+    }
+    drawStoryCard();
+    cardModal.hidden = false;
+    cardModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    if (cardClose) cardClose.focus();
+  }
+
+  function closeCard() {
+    if (!cardModal) return;
+    cardModal.hidden = true;
+    cardModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    if (cardBtn) cardBtn.focus();
+  }
+
+  function downloadCard() {
+    if (!cardCanvas) return;
+    const finish = function (blobOrUrl) {
+      const a = document.createElement("a");
+      a.download = "ve-story-card-" + Date.now() + ".png";
+      a.href = blobOrUrl;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    };
+    if (cardCanvas.toBlob) {
+      cardCanvas.toBlob(function (blob) {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        finish(url);
+        setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+      }, "image/png");
+    } else {
+      finish(cardCanvas.toDataURL("image/png"));
+    }
+    showToast("故事卡已保存");
+  }
+
+  if (cardBtn) cardBtn.addEventListener("click", openCard);
+  if (cardClose) cardClose.addEventListener("click", closeCard);
+  if (cardDownload) cardDownload.addEventListener("click", downloadCard);
+  if (cardModal) {
+    cardModal.addEventListener("click", function (e) {
+      if (e.target === cardModal) closeCard();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !cardModal.hidden) closeCard();
+    });
+  }
+
+  // 首页落地区的「开始写我的故事」：回到顶部并直接进入创作流
+  const ctaStart = document.getElementById("cta-start");
+  if (ctaStart) {
+    ctaStart.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "auto" });
+      goStep(1);
     });
   }
 

@@ -111,6 +111,18 @@
   function resetAndRender() {
     shownIds = new Set();
     grid.innerHTML = "";
+
+    // 支持从首页 / 故事卡直接链到某一篇：?story=<id>
+    var focusId = "";
+    try {
+      focusId = new URLSearchParams(window.location.search).get("story") || "";
+    } catch (err) {}
+
+    if (focusId) {
+      var focus = STORIES.filter(function (s) { return s.id === focusId; })[0];
+      if (focus) appendCard(focus);
+    }
+
     sentinel.style.display = "";
     renderBatch(randInt(8, 10));
   }

@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ve创作 — 给茻人一个讲故事的空间</title>
-  <meta name="description" content="ve创作：给素食者、准备开始吃素的人、关注动物权益的人做的创作交流平台。">
+  <meta name="description" content="ve创作是一个为素食者、准备开始吃素的人与关注动物的人做的故事空间：读一个真实故事，沿着六个问题写下自己的，再做成一张可以带走的故事卡。">
   <meta name="theme-color" content="#6f8f72">
   <link rel="canonical" href="https://ve-chuangzuo.onrender.com/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="ve创作 — 给茻人一个讲故事的空间">
-  <meta property="og:description" content="给素食者、准备开始吃素的人、关注动物权益的人做的创作交流平台。">
+  <meta property="og:description" content="读一个真实故事，写下自己的，再做成一张可以带走的故事卡。">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ve创作">
   <meta property="og:url" content="https://ve-chuangzuo.onrender.com/">
@@ -17,6 +17,11 @@
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <div class="demo-banner" role="note">
+    <strong>茻新计划 · 在线原型 Demo</strong>
+    <a href="about.html">项目说明 →</a>
+  </div>
 
   <header class="site-header">
     <div class="header-inner">
@@ -56,6 +61,7 @@
         <p class="step-tagline">一个讲故事的空间</p>
         <p class="step-hero-note">不必急着讲一个完整的故事——先替自己留出一个安静的角落，让故事慢慢长出来。</p>
         <button type="button" id="start-create-btn" class="step-start-btn">开始创作</button>
+        <p class="step-scroll-hint"><a href="#prop">这是什么项目？往下看 ↓</a></p>
       </div>
       <p class="step-demo">茻新计划 · 在线原型</p>
     </section>
@@ -122,7 +128,7 @@
     </section>
 
     <section id="step-writing" class="step step-writing" hidden>
-      <div id="ai-hint">AI 引导示例将在下一步实现</div>
+      <div id="ai-hint"></div>
 
       <div class="ai-suggestions-head">
         <span>写不下去时，可以试试：</span>
@@ -134,42 +140,162 @@
       <textarea id="story-text" placeholder="从你想说的第一句话开始……"></textarea>
 
       <div class="writing-actions">
+        <button type="button" id="story-card-btn" class="writing-action writing-action-ghost">做成故事卡</button>
         <button type="button" id="save-btn" class="writing-action">去保存</button>
         <button type="button" id="publish-btn" class="writing-action">去发布</button>
       </div>
-      <p class="writing-note">AI 引导为示例，正式版将接入真实 AI</p>
+      <p class="writing-note">AI 引导为示例，正式版将接入真实 AI；发布的帖子仅保存在本机浏览器，用于展示流程。</p>
     </section>
 
+    <!-- ============ 落地区：创作流之外的项目说明 ============ -->
+    <div id="landing" class="landing">
+
+      <section id="prop" class="section landing-prop" aria-labelledby="prop-title">
+        <p class="landing-kicker">ve创作 · 茻新计划在线原型</p>
+        <h2 id="prop-title">为中文世界的茻人，<br>保存并传播真实的转变故事。</h2>
+        <p class="landing-lead">
+          它不催人认同，也不讲大道理。它只做一件事：让一个人愿意读下去，读到另一个人的选择——
+          然后，也许愿意写下自己的。
+        </p>
+
+        <div class="stat-row">
+          <div class="stat"><b>24</b><span>篇已收录的真实故事，来源逐篇可查</span></div>
+          <div class="stat"><b>6</b><span>个故事分类，从告别到回家</span></div>
+          <div class="stat"><b>1</b><span>张可保存、可分享的故事卡</span></div>
+        </div>
+
+        <div class="cta-row">
+          <button type="button" id="cta-start" class="btn btn-primary">开始写我的故事</button>
+          <a class="btn btn-ghost" href="inspiration.html">先读几个故事</a>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="how-title">
+        <h2 id="how-title">它是怎么运转的</h2>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-num">01</span>
+            <h3>读一个真实故事</h3>
+            <p>从 24 篇开始：有人告别，有人回家。不急着表态，先让别人的故事陪你一会儿。</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-num">02</span>
+            <h3>沿着六个问题写下你的</h3>
+            <p>心情、地点、时间、切入角度。卡住的时候，AI 只递给你一句提示，不替你写。</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-num">03</span>
+            <h3>做成一张故事卡带走</h3>
+            <p>一张图，可以发给那个还在犹豫的人；也可以投进故事库，让下一个人读到。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="pick-title">
+        <h2 id="pick-title">先读这三篇</h2>
+        <div class="pick-grid">
+          <article class="pick-card">
+            <p class="story-badge story-badge-real">说再见</p>
+            <h3>最后一只旅鸽：玛莎</h3>
+            <p>旅鸽曾是北美数量最多的鸟，估计有 30–50 亿只。从遮天蔽日到彻底消失，只用了不到一百年。</p>
+            <a class="pick-link" href="inspiration.html?story=martha">读这一篇 →</a>
+          </article>
+          <article class="pick-card">
+            <p class="story-badge story-badge-real">回家</p>
+            <h3>朱鹮：从最后 7 只到全球万只</h3>
+            <p>1981 年，全世界只剩 7 只野生朱鹮，在陕西洋县被重新发现。四十年后，这个数字是——一万。</p>
+            <a class="pick-link" href="inspiration.html?story=crested-ibis">读这一篇 →</a>
+          </article>
+          <article class="pick-card">
+            <p class="story-badge story-badge-real">回家</p>
+            <h3>海獭：从皮毛贸易的幸存者到森林的守护者</h3>
+            <p>它差点因为一身毛皮消失。而当它回来，整片海草森林也跟着回来了。</p>
+            <a class="pick-link" href="inspiration.html?story=sea-otter">读这一篇 →</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section map-section" aria-labelledby="map-title">
+        <h2 id="map-title">故事发生的地方</h2>
+        <p class="map-note">
+          这 24 个故事散在 9 个国家与地区，最早发生在公元 366 年，最近在 2022 年。
+          点按地图上的圆点，可以看见它对应哪一篇。
+        </p>
+
+        <div class="visitor-map-wrap" style="position:relative;width:100%;aspect-ratio:2.3/1;max-width:860px;margin:0 auto;border-radius:12px;overflow:hidden;background:#f2f8f4;">
+          <svg id="visitmap-svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet" role="img" aria-label="故事发生地地图，圆点代表故事所在城市" style="position:absolute;inset:0;width:100%;height:100%;">
+            <rect width="800" height="400" fill="#f2f8f4"></rect>
+            <g id="visitmap-viewport">
+              <path id="visitmap-land" d="" fill="#bfe0cd" stroke="#9cc7b1" stroke-width="0.6"></path>
+              <g id="visitmap-dots"></g>
+            </g>
+          </svg>
+          <div class="map-controls" role="group" aria-label="地图缩放控制">
+            <button type="button" id="map-zoom-in" aria-label="放大地图">＋</button>
+            <button type="button" id="map-zoom-out" aria-label="缩小地图">−</button>
+            <button type="button" id="map-reset" aria-label="复位地图">复位</button>
+          </div>
+          <div class="map-empty" id="visitmap-empty" hidden>地图暂时看不见，但不影响阅读。</div>
+        </div>
+
+        <div class="map-legend">
+          <span>中国 · 14 篇</span>
+          <span>美国 · 3 篇</span>
+          <span>其余 7 地 · 各 1 篇</span>
+          <span>跨度 366 — 2022</span>
+        </div>
+
+        <p class="visitor-map-meta">
+          <span id="visitmap-summary"></span>
+          <span class="map-tip">拖动平移 · 滚轮 / 按钮缩放</span>
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="next-title">
+        <h2 id="next-title">这个项目现在到哪一步</h2>
+        <ul class="status-list">
+          <li>在线原型已经可以完整走一遍：创作流 → 故事卡 → 本机发布</li>
+          <li>24 篇真实故事，每篇都附原始来源链接</li>
+          <li>故事库已有 6 个分类与明确的编辑红线</li>
+          <li class="todo">下一步：3 个城市、6 个月，采集 60 个茻人故事</li>
+          <li class="todo">下一步：投稿先审后发，由编辑校对后入库</li>
+          <li class="todo">下一步：接入真实账号、内容审核与声音引导</li>
+        </ul>
+
+        <div class="cta-row">
+          <a class="btn btn-ghost" href="about.html">看完整项目说明</a>
+        </div>
+      </section>
+
+    </div>
   </main>
 
-  <section class="visitor-map-section" aria-labelledby="visitor-map-title">
-    <h2 id="visitor-map-title">访客地图</h2>
-    <p class="visitor-map-note">来自世界各地的创作者在这里留下足迹。</p>
-
-    <div class="visitor-map-wrap" style="position:relative;width:100%;aspect-ratio:2.3/1;max-width:760px;margin:0 auto;border-radius:12px;overflow:hidden;background:#f2f8f4;">
-      <svg id="visitmap-svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet" role="img" aria-label="世界访客地图，圆点代表访客所在城市" style="position:absolute;inset:0;width:100%;height:100%;">
-        <rect width="800" height="400" fill="#f2f8f4"></rect>
-        <g id="visitmap-viewport">
-          <path id="visitmap-land" d="" fill="#bfe0cd" stroke="#9cc7b1" stroke-width="0.6"></path>
-          <g id="visitmap-dots"></g>
-        </g>
-      </svg>
-      <div class="map-controls" role="group" aria-label="地图缩放控制">
-        <button type="button" id="map-zoom-in" aria-label="放大地图">＋</button>
-        <button type="button" id="map-zoom-out" aria-label="缩小地图">−</button>
-        <button type="button" id="map-reset" aria-label="复位地图">复位</button>
-      </div>
-      <div class="map-empty" id="visitmap-empty" hidden>地图暂时看不见，但不影响使用。</div>
+  <footer class="site-footer">
+    <div class="footer-inner footer-wide">
+      <p>© 2026 ve创作 · 一个面向茻人的故事采集与传播原型</p>
+      <p class="footer-links">
+        <a href="about.html">项目说明</a>
+        <a href="about.html#principles">内容原则</a>
+        <a href="about.html#privacy">隐私与数据</a>
+      </p>
     </div>
+  </footer>
 
-    <p class="visitor-map-meta">
-      <span id="visitmap-summary"></span>
-      <span class="map-tip">拖动平移 · 滚轮 / 按钮缩放</span>
-    </p>
-    <p class="visitor-map-privacy">访客地图说明：本页仅统计访问者的大致所在地区（城市级别），用于了解内容被哪些地方的人看见。不会收集精确位置、姓名或联系方式，IP 只作匿名统计、不留存个人信息，也不用于其他用途。地图为世界地图示意，点位为城市级近似坐标。</p>
-  </section>
+  <!-- 故事卡弹层 -->
+  <div id="story-card-modal" class="card-modal" hidden aria-hidden="true">
+    <div class="card-modal-inner" role="dialog" aria-modal="true" aria-labelledby="card-modal-title">
+      <h2 id="card-modal-title">你的故事卡</h2>
+      <p class="card-tip">一张竖版图，适合发在朋友圈或小红书。文字只留在你本机，不会上传。</p>
+      <canvas id="story-card-canvas" width="1080" height="1440" aria-label="故事卡预览"></canvas>
+      <div class="card-actions">
+        <button type="button" id="story-card-download" class="btn btn-primary">保存图片</button>
+        <button type="button" id="story-card-close" class="btn card-close">先不保存</button>
+      </div>
+    </div>
+  </div>
 
   <script src="js/world-map.js"></script>
+  <script src="js/story-places.js"></script>
   <script>
   (function () {
     var SVG_NS = "http://www.w3.org/2000/svg";
@@ -259,51 +385,59 @@
     document.getElementById("map-reset").onclick = reset;
     reset();
 
-    fetch("/api/visitors")
-      .then(function (r) { if (!r.ok) throw new Error("visitors api " + r.status); return r.json(); })
-      .then(function (data) {
-        var keys = Object.keys(data || {});
-        var total = 0;
-        keys.forEach(function (k) {
-          var v = data[k] || {};
-          var lat = Number(v.lat), lng = Number(v.lng), count = Number(v.count) || 0;
-          if (isNaN(lat) || isNaN(lng)) return;
-          total += count;
-          var cx = (lng + 180) / 360 * W;
-          var cy = (90 - lat) / 180 * H;
-          var r = Math.max(3.5, Math.min(12, 3.5 + Math.sqrt(count) * 1.6));
-          var halo = document.createElementNS(SVG_NS, "circle");
-          halo.setAttribute("cx", cx.toFixed(1));
-          halo.setAttribute("cy", cy.toFixed(1));
-          halo.setAttribute("r", (r * 2.1).toFixed(1));
-          halo.setAttribute("fill", "#3f8f6b");
-          halo.setAttribute("fill-opacity", "0.16");
-          halo.setAttribute("pointer-events", "none");
-          dots.appendChild(halo);
-          var c = document.createElementNS(SVG_NS, "circle");
-          c.setAttribute("cx", cx.toFixed(1));
-          c.setAttribute("cy", cy.toFixed(1));
-          c.setAttribute("r", r.toFixed(1));
-          c.setAttribute("fill", "#3f8f6b");
-          c.setAttribute("stroke", "#ffffff");
-          c.setAttribute("stroke-width", "1");
-          c.setAttribute("fill-opacity", "0.9");
-          c.setAttribute("role", "img");
-          var label = count + " 次访问 · " + (v.city || "未知城市") + ", " + (v.country || "");
-          c.setAttribute("aria-label", label);
-          var title = document.createElementNS(SVG_NS, "title");
-          title.textContent = label;
-          c.appendChild(title);
-          dots.appendChild(c);
-        });
-        if (summary) {
-          summary.textContent = keys.length ? (keys.length + " 个城市 · " + total + " 次访问") : "还没有访客记录";
-        }
-      })
-      .catch(function () {
-        if (empty) empty.hidden = false;
-        if (summary) summary.textContent = "";
-      });
+    var places = window.STORY_PLACES || [];
+    if (!places.length) {
+      if (empty) empty.hidden = false;
+      return;
+    }
+
+    // 同一坐标合并计数，避免圆点完全重叠
+    var byKey = {};
+    places.forEach(function (p) {
+      var key = p.lat.toFixed(1) + "," + p.lng.toFixed(1);
+      if (!byKey[key]) byKey[key] = { lat: p.lat, lng: p.lng, items: [] };
+      byKey[key].items.push(p);
+    });
+
+    var keys = Object.keys(byKey);
+    keys.forEach(function (k) {
+      var g = byKey[k];
+      var count = g.items.length;
+      var cx = (g.lng + 180) / 360 * W;
+      var cy = (90 - g.lat) / 180 * H;
+      var r = count > 1 ? 6.5 : 5;
+
+      var halo = document.createElementNS(SVG_NS, "circle");
+      halo.setAttribute("cx", cx.toFixed(1));
+      halo.setAttribute("cy", cy.toFixed(1));
+      halo.setAttribute("r", (r * 2.4).toFixed(1));
+      halo.setAttribute("fill", "#3f8f6b");
+      halo.setAttribute("fill-opacity", "0.14");
+      halo.setAttribute("pointer-events", "none");
+      dots.appendChild(halo);
+
+      var c = document.createElementNS(SVG_NS, "circle");
+      c.setAttribute("cx", cx.toFixed(1));
+      c.setAttribute("cy", cy.toFixed(1));
+      c.setAttribute("r", r);
+      c.setAttribute("fill", "#3f8f6b");
+      c.setAttribute("stroke", "#ffffff");
+      c.setAttribute("stroke-width", "1.2");
+      c.setAttribute("fill-opacity", "0.92");
+      c.setAttribute("role", "img");
+      var label = g.items.map(function (p) {
+        return "《" + p.title + "》" + p.place + " · " + p.year;
+      }).join("；");
+      c.setAttribute("aria-label", label);
+      var title = document.createElementNS(SVG_NS, "title");
+      title.textContent = label;
+      c.appendChild(title);
+      dots.appendChild(c);
+    });
+
+    if (summary) {
+      summary.textContent = places.length + " 个故事 · " + keys.length + " 个地点";
+    }
   })();
   </script>
   <script src="js/nav.js"></script>

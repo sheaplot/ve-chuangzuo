@@ -12,6 +12,10 @@ dist/
 
 # 本地临时文件
 *.log
+.shots/
+preview-tmp.html
+*-test.mjs
+check.mjs
 
 # 本地生成的数据文件（不提交到仓库）
 users.json
