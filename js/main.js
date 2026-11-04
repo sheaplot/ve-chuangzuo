@@ -32,7 +32,8 @@
     place: "",
     time: "",
     angle: "",
-    story: ""
+    story: "",
+    mode: "real"   // real = 真实故事模式；free = 自由创作模式
   };
 
   // 四个选项屏的配置：按钮组 / 自定义胶囊输入框
@@ -71,6 +72,16 @@
   const suggestionsBox = document.getElementById("ai-suggestions");
   const suggestionTip = document.getElementById("ai-suggestion-tip");
   const refreshBtn = document.getElementById("ai-refresh");
+  const modeBtns = Array.from(document.querySelectorAll(".ai-mode-btn"));
+  const interviewPanel = document.getElementById("interview-panel");
+  const interviewQuestion = document.getElementById("interview-question");
+  const interviewAnswers = document.getElementById("interview-answers");
+  const interviewNext = document.getElementById("interview-next");
+  const truthBox = document.getElementById("truth-box");
+  const truthConfirm = document.getElementById("truth-confirm");
+  const fictionBox = document.getElementById("fiction-box");
+  const fictionConfirm = document.getElementById("fiction-confirm");
+  const suggestionsTitle = document.getElementById("ai-suggestions-title");
 
   let advanceTimer = null;
 
@@ -106,8 +117,7 @@
 
     // 进入写作屏时，生成示例 AI 引导语与写作提示
     if (clamped === STEP_ORDER.length - 1) {
-      renderAiHint();
-      renderSuggestions();
+      applyMode();
     }
   }
 
@@ -206,10 +216,12 @@
     const time = state.time || "某个时刻";
     const angle = state.angle || "某个角度";
 
-    const sentence =
-      "你此刻感到" + mood + "，故事发生在" + place +
-      "——那是" + time + "的事。想从" + angle +
-      "讲起，试试从那个让你改变的决定性时刻开始写。";
+    const sentence = state.mode === "free"
+      ? "（自由创作）此刻" + mood + "，场景在" + place + "，时间是" + time +
+        "。可以从" + angle + "切入，不必拘泥真实——虚构的细节也可以是真的感受。"
+      : "你此刻感到" + mood + "，故事发生在" + place +
+        "——那是" + time + "的事。想从" + angle +
+        "讲起，试试从那个让你改变的决定性时刻开始写。";
 
     aiHint.textContent = "";
 
@@ -220,7 +232,9 @@
     const note = document.createElement("p");
     note.className = "ai-hint-note";
     note.style.cssText = "margin-top: 12px; color: var(--muted); font-size: 0.82rem; line-height: 1.7;";
-    note.textContent = "AI 引导示例，正式版将接入真实 AI";
+    note.textContent = state.mode === "free"
+      ? "AI 引导示例（自由创作模式）：可以虚构人物与情节"
+      : "AI 引导示例（真实故事模式）：只帮你回忆与组织，不替你编造";
 
     aiHint.append(p);
     aiHint.append(note);
@@ -260,15 +274,47 @@
     { label: "写写对方的表情", tip: "写一个对方的表情或动作，不解释它代表什么。" }
   ];
 
+  // ---------- 真实故事模式：AI 采访问题 ----------
+  const INTERVIEW_QUESTIONS = [
+    { q: "这件事大概发生在什么时候？先从最模糊的时间说起也行。", hints: ["童年", "学生时代", "毕业那年", "去年", "某个夏天", "记不太清"] },
+    { q: "当时你在哪里？周围有什么声音或气味吗？", hints: ["家里", "学校", "路上", "菜市场", "餐馆", "记不清了"] },
+    { q: "当时身边有谁？他是怎么出现在画面里的？", hints: ["家人", "朋友", "陌生人", "只有我自己", "不记得了"] },
+    { q: "那一刻你身体有什么感觉？心跳、手、呼吸？", hints: ["心跳很快", "手有点抖", "说不上来", "很平静"] },
+    { q: "是什么让你改变了原来的想法？", hints: ["看到一件事", "听到一句话", "自己想了很久", "说不清"] },
+    { q: "如果只能用一句话说清这件事，你会怎么说？", hints: ["那一刻我决定……", "我第一次意识到……", "从那天起……"] },
+    { q: "有什么细节你现在还记得，但当时没在意？", hints: ["一个动作", "一句话", "一个物件", "一种味道"] },
+    { q: "回头看，这件事对你后来有什么影响？", hints: ["饮食习惯变了", "看动物的方式变了", "更愿意开口了", "还在想"] },
+    { q: "有没有一句话，是你当时没说出口的？", hints: ["想说谢谢", "想道歉", "想拦住他", "没有"] }
+  ];
+
+  // ---------- 自由创作模式：灵感与结构建议 ----------
+  const FREE_SUGGESTIONS = [
+    { label: "设想一个动物视角", tip: "把叙述者换成一只动物：它怎么看这件事？它在意什么？" },
+    { label: "写一则短寓言", tip: "用一个小故事讲一个道理，结尾不必点明寓意。" },
+    { label: "加一个虚构人物", tip: "引入一个与现实无关的人物，让他制造一点意外。" },
+    { label: "给它一个反转结局", tip: "先写一个意料之中的结尾，再换一个意料之外但合理的。" },
+    { label: "写成一首短诗", tip: "把最想说的画面压缩成三到五行。" },
+    { label: "扩写这一段", tip: "挑一段最喜欢的，把它拉长两倍，补上声音、气味和动作。" },
+    { label: "换一种文体试试", tip: "试着把它写成信、日记、或旁白。" },
+    { label: "给故事一个物件", tip: "挑一个物件贯穿全文，让它在开头和结尾各出现一次。" }
+  ];
+
   let suggestionTimer = null;
   let lastSuggestionLength = -1;
 
   function suggestionCandidates(text) {
-    let list = SUGGESTION_POOL.slice();
-    if (text.length < 80) list = list.concat(SHORT_SUGGESTIONS);
-    if (text.length > 180) list = list.concat(LONG_SUGGESTIONS);
-    if (!/[“”"「」]/.test(text)) list = list.concat(DIALOGUE_SUGGESTIONS);
-    if (/我/.test(text)) list = list.concat(PERSPECTIVE_SUGGESTIONS);
+    let list;
+    if (state.mode === "free") {
+      list = FREE_SUGGESTIONS.slice();
+      if (text.length > 180) list = list.concat(LONG_SUGGESTIONS);
+      if (!/[“”"「」]/.test(text)) list = list.concat(DIALOGUE_SUGGESTIONS);
+    } else {
+      list = SUGGESTION_POOL.slice();
+      if (text.length < 80) list = list.concat(SHORT_SUGGESTIONS);
+      if (text.length > 180) list = list.concat(LONG_SUGGESTIONS);
+      if (!/[“”"「」]/.test(text)) list = list.concat(DIALOGUE_SUGGESTIONS);
+      if (/我/.test(text)) list = list.concat(PERSPECTIVE_SUGGESTIONS);
+    }
 
     const seen = {};
     return list.filter(function (item) {
@@ -308,6 +354,81 @@
         renderSuggestions();
       }
     }, 900);
+  }
+
+  // ---------- 真实故事模式：采访流程 ----------
+  let interviewIndex = 0;
+
+  function renderInterview() {
+    if (!interviewQuestion || !interviewAnswers) return;
+    const item = INTERVIEW_QUESTIONS[interviewIndex] || INTERVIEW_QUESTIONS[0];
+    interviewQuestion.textContent = "Q" + (interviewIndex + 1) + "／" + INTERVIEW_QUESTIONS.length + "　" + item.q;
+
+    interviewAnswers.innerHTML = "";
+    item.hints.forEach(function (hint) {
+      const li = document.createElement("li");
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "interview-chip";
+      btn.textContent = hint;
+      btn.addEventListener("click", function () {
+        if (!storyText) return;
+        const insert = hint + "。";
+        if (storyText.value && !/\n$/.test(storyText.value)) storyText.value += "\n";
+        storyText.value += insert;
+        storyText.focus();
+        state.story = storyText.value;
+        if (state.mode === "real") state.truthConfirmed = false;
+        if (truthConfirm) truthConfirm.checked = false;
+        if (suggestionTip) suggestionTip.textContent = "已加入正文，可以接着补细节，或改成你自己的说法。";
+        scheduleSuggestions();
+      });
+      li.appendChild(btn);
+      interviewAnswers.appendChild(li);
+    });
+  }
+
+  // ---------- 应用模式（切换界面与提示内容）----------
+  function applyMode() {
+    const isReal = state.mode === "real";
+
+    modeBtns.forEach(function (btn) {
+      const on = btn.getAttribute("data-mode") === state.mode;
+      btn.classList.toggle("selected", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+
+    if (interviewPanel) interviewPanel.hidden = !isReal;
+    if (truthBox) truthBox.hidden = !isReal;
+    if (fictionBox) fictionBox.hidden = isReal;
+    if (storyText) {
+      storyText.placeholder = isReal
+        ? "从你想说的第一句话开始……（只写真实发生过的事）"
+        : "从你想写的第一句话开始……（虚构、寓言、诗歌都可以）";
+    }
+    if (suggestionsTitle) {
+      suggestionsTitle.textContent = isReal ? "回忆卡壳时，可以试试：" : "需要灵感时，可以试试：";
+    }
+
+    if (modeBtns.length && isReal) renderInterview();
+    renderAiHint();
+    renderSuggestions();
+  }
+
+  modeBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const next = btn.getAttribute("data-mode");
+      if (!next || next === state.mode) return;
+      state.mode = next;
+      applyMode();
+    });
+  });
+
+  if (interviewNext) {
+    interviewNext.addEventListener("click", function () {
+      interviewIndex = (interviewIndex + 1) % INTERVIEW_QUESTIONS.length;
+      renderInterview();
+    });
   }
 
   // 把毫秒时间差转成人类可读的相对时间（如 "刚才"、"2小时前"、"3天前"）
@@ -379,6 +500,18 @@
       return;
     }
 
+    // 真实故事模式：必须确认内容真实性
+    if (state.mode === "real") {
+      if (!truthConfirm || !truthConfirm.checked) {
+        alert("真实故事模式需要先确认：内容是真实的，AI 只参与了回忆与语言整理。");
+        if (truthConfirm) truthConfirm.focus();
+        return;
+      }
+      if (!window.confirm("确认这是真实发生过的事吗？发布后会带上「真实故事」标记。")) return;
+    } else if (!window.confirm("这是虚构创作，发布后会标注「虚构 / AI 辅助创作」，是否确认发布？")) {
+      return;
+    }
+
     persistLocalDraft(story);
 
     const moodBtn = document.querySelector(".mood-btn.selected");
@@ -392,6 +525,8 @@
         me: true,
         mood: mood,
         story: story,
+        mode: state.mode,
+        fiction: state.mode === "free",
         time: formatRelativeTime(new Date()),
         likes: 0,
         comments: 0,
@@ -404,7 +539,7 @@
 
     if (localStorage.getItem("ve_token")) {
       recordWriting(story).then(function () {
-        showToast("已发布到社群（本机演示）");
+        showToast(state.mode === "free" ? "已发布到社群（虚构 / AI 辅助创作）" : "已发布到社群（真实故事）");
         setTimeout(function () {
           window.location.href = "community.html";
         }, 700);
@@ -412,7 +547,7 @@
       return;
     }
 
-    showToast("已发布到社群（本机演示）");
+    showToast(state.mode === "free" ? "已发布到社群（虚构 / AI 辅助创作）" : "已发布到社群（真实故事）");
     setTimeout(function () {
       window.location.href = "community.html";
     }, 700);

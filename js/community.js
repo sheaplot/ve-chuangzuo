@@ -86,6 +86,7 @@
           text: p.story || "",
           likes: p.likes || 0,
           comments: p.comments || 0,
+          fiction: p.fiction === true,
           me: true
         });
       });
@@ -138,6 +139,7 @@
       (followed ? "已关注" : "+关注") + '</button>' +
       '</div>' +
       '<div class="post-mood story-badge">' + escapeHtml(post.mood) + '</div>' +
+      (post.fiction ? '<span class="post-fiction">虚构 / AI 辅助创作</span>' : '') +
       '<p class="post-text">' + escapeHtml(post.text) + '</p>' +
       '<div class="post-actions">' +
       '  <button type="button" class="post-like" data-liked="' + liked + '">' +

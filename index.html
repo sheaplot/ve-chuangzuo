@@ -27,15 +27,14 @@
     <div class="header-inner">
       <a class="brand" href="index.html" aria-label="ve创作 首页">
         <svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
-          <path d="M38 10C27 9 14 13 10 24c-3 8 1 13 7 15 12 4 21-9 21-29Z"
-                stroke="currentColor"
-                stroke-width="2.4"
-                stroke-linejoin="round"></path>
-          <path d="M12 36 33 15"
-                stroke="currentColor"
-                stroke-width="2.4"
-                stroke-linecap="round"></path>
-          <path d="m33 15 4-5 1 7-5-2Z" fill="currentColor"></path>
+          <g transform="translate(8.9 -1.8) scale(0.78)">
+            <path d="M38 10C27 9 14 13 10 24c-3 8 1 13 7 15 12 4 21-9 21-29Z"
+                  stroke="currentColor"
+                  stroke-width="2.95"
+                  stroke-linejoin="round"></path>
+            <path d="m33 15 4-5 1 7-5-2Z" fill="currentColor"></path>
+          </g>
+          <path d="M33.3 9.8L32.8 10.4L32.3 11L31.7 11.6L31.1 12.2L30.4 12.8L29.7 13.5L28.9 14.2L28.1 14.9L27.3 15.6L26.4 16.4L25.5 17.1L24.6 17.9L23.6 18.7L22.7 19.5L21.7 20.3L20.7 21.2L19.7 22L18.6 22.9L17.6 23.9L16.6 24.8L15.6 25.7L14.6 26.7L13.6 27.7L12.6 28.7L11.6 29.7L10.6 30.8L9.7 31.8L8.8 32.9L7.9 34L7 35.1L6.1 36.2L5.3 37.3L4.5 38.4L3.8 39.6L3.1 40.7L2.4 41.9L2.8 42.1L3.6 41L4.4 40L5.2 38.9L6.1 37.9L7 36.9L7.9 35.9L8.9 34.9L9.9 33.9L10.9 32.9L11.9 32L12.9 31L13.9 30.1L15 29.2L16 28.2L17.1 27.3L18.1 26.5L19.1 25.6L20.2 24.7L21.2 23.9L22.2 23L23.2 22.2L24.2 21.3L25.2 20.5L26.1 19.7L27 18.9L27.9 18.2L28.8 17.4L29.7 16.7L30.5 16L31.3 15.3L32 14.6L32.7 13.9L33.4 13.3L34 12.6L34.6 12L35.1 11.4Z" fill="currentColor"></path>
         </svg>
         <span class="brand-name">ve创作</span>
       </a>
@@ -128,16 +127,47 @@
     </section>
 
     <section id="step-writing" class="step step-writing" hidden>
+      <div class="ai-mode-bar" role="group" aria-label="选择 AI 创作模式">
+        <span class="ai-mode-label">AI 模式</span>
+        <button type="button" class="ai-mode-btn selected" data-mode="real" aria-pressed="true">🕊️ 真实故事</button>
+        <button type="button" class="ai-mode-btn" data-mode="free" aria-pressed="false">🌱 自由创作</button>
+      </div>
+
       <div id="ai-hint"></div>
 
+      <div class="interview" id="interview-panel">
+        <div class="interview-head">
+          <span>AI 采访 · 帮你把真的那部分想起来</span>
+          <button type="button" id="interview-next">下一个问题</button>
+        </div>
+        <p id="interview-question" class="interview-question"></p>
+        <ul id="interview-answers" class="interview-answers"></ul>
+      </div>
+
       <div class="ai-suggestions-head">
-        <span>写不下去时，可以试试：</span>
+        <span id="ai-suggestions-title">写不下去时，可以试试：</span>
         <button type="button" id="ai-refresh">换一批</button>
       </div>
       <div id="ai-suggestions" class="ai-suggestions" aria-live="polite"></div>
       <p id="ai-suggestion-tip" class="ai-suggestion-tip" aria-live="polite"></p>
 
       <textarea id="story-text" placeholder="从你想说的第一句话开始……"></textarea>
+
+      <div id="truth-box" class="truth-box">
+        <label class="truth-check">
+          <input type="checkbox" id="truth-confirm">
+          <span>我确认：以上内容基于真实经历，没有为了效果虚构事件；AI 只帮我回忆和整理语言。</span>
+        </label>
+        <p class="truth-note">真实故事模式下，AI 不会替你添加没有发生过的事。</p>
+      </div>
+
+      <div id="fiction-box" class="fiction-box" hidden>
+        <label class="truth-check">
+          <input type="checkbox" id="fiction-confirm">
+          <span>我了解：这是虚构创作，AI 可能参与构思、修改或扩写。</span>
+        </label>
+        <p class="truth-note">发布时会自动标注「虚构 / AI 辅助创作」。</p>
+      </div>
 
       <div class="writing-actions">
         <button type="button" id="story-card-btn" class="writing-action writing-action-ghost">做成故事卡</button>
@@ -180,8 +210,8 @@
           </article>
           <article class="feature-card">
             <span class="feature-num">02</span>
-            <h3>沿着六个问题写下你的</h3>
-            <p>心情、地点、时间、切入角度。卡住的时候，AI 只递给你一句提示，不替你写。</p>
+            <h3>六个问题，把经历问出来</h3>
+            <p>它不像一张白纸，更像一次访谈：心情、地点、时间、切入角度。卡住时 AI 只递一句提示，不替你写。</p>
           </article>
           <article class="feature-card">
             <span class="feature-num">03</span>

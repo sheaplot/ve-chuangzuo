@@ -1398,6 +1398,171 @@ svg {
   text-align: left;
 }
 
+/* AI 模式切换 */
+.ai-mode-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.ai-mode-label {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.ai-mode-btn {
+  min-height: 44px;
+  padding: 8px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-soft);
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.ai-mode-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+}
+
+.ai-mode-btn.selected {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* AI 采访 */
+.interview {
+  width: 90%;
+  max-width: 720px;
+  margin-top: 18px;
+  padding: 16px 20px;
+  border: 1px dashed var(--accent-line);
+  border-radius: var(--radius);
+  background: #fbfdfb;
+  text-align: left;
+}
+
+.interview[hidden] {
+  display: none;
+}
+
+.interview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.interview-head button {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--accent-deep);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.interview-question {
+  margin: 8px 0 10px;
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.interview-answers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.interview-answers li {
+  margin: 0;
+}
+
+.interview-chip {
+  min-height: 40px;
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-soft);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.interview-chip:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+}
+
+/* 真实性 / 虚构确认 */
+.truth-box,
+.fiction-box {
+  width: 90%;
+  max-width: 720px;
+  margin-top: 18px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+  text-align: left;
+}
+
+.truth-box[hidden],
+.fiction-box[hidden] {
+  display: none;
+}
+
+.truth-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text-soft);
+  font-size: 0.84rem;
+  line-height: 1.7;
+  cursor: pointer;
+}
+
+.truth-check input {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: var(--accent);
+}
+
+.truth-note {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.6;
+}
+
 .step-writing .writing-note {
   margin-top: 16px;
   color: var(--muted);
@@ -1832,6 +1997,18 @@ svg {
 .post-mood {
   align-self: flex-start;
   font-size: 0.72rem;
+  line-height: 1.6;
+}
+
+.post-fiction {
+  align-self: flex-start;
+  margin-top: -4px;
+  padding: 2px 8px;
+  border: 1px dashed #cdb98a;
+  border-radius: 999px;
+  background: #fbf5e6;
+  color: #8a7440;
+  font-size: 0.68rem;
   line-height: 1.6;
 }
 
